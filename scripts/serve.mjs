@@ -11,7 +11,7 @@ http.createServer(async (req, res) => {
   let requested
   try { requested = decodeURIComponent(u.pathname) } catch { res.writeHead(400); res.end('Bad request'); return }
   // Only serve the public application, never .git, tests, private notes or SQL.
-  const publicPaths = new Set(['/','/index.html','/config.js','/service-worker.js','/assets/styles.css','/src/main.js','/src/auth.js','/src/storage.js','/src/learning.js','/src/assessment.js','/data/curriculum.js','/data/lesson-guides.js'])
+  const publicPaths = new Set(['/','/index.html','/config.js','/service-worker.js','/sandbox.html','/assets/styles.css','/src/main.js','/src/auth.js','/src/storage.js','/src/learning.js','/src/assessment.js','/src/js-runner.js','/data/curriculum.js','/data/lesson-guides.js'])
   if (!publicPaths.has(requested)) {res.writeHead(404);res.end('Niet gevonden');return}
   let file = path.resolve(root, '.' + requested)
   if (!(file === root || file.startsWith(root + path.sep))) {res.writeHead(403);res.end();return}

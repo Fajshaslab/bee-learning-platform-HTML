@@ -1,4 +1,5 @@
 import { assessLesson } from './assessment.js'
+import { runJavaScript, stopJavaScript } from './js-runner.js'
 import { CONFIG } from '../config.js'
 import { modules, allLessons, findModule, findLesson } from '../data/curriculum.js'
 import { escapeHtml as e, getNext, getAccess, moduleState, localSourceCheck, makePreview, emptyProgress } from './learning.js'
@@ -73,7 +74,7 @@ function renderLessonGuide(lesson){
  <div class="guide-result"><h3>5. Wat moet je zien of kunnen uitleggen?</h3><p>${e(g.expected)}</p></div>
  <div class="guide-warning"><h3>Veelgemaakte fout</h3><p>${e(g.pitfall)}</p></div>
  <h3>Check je begrip</h3><ol class="guide-questions">${g.questions.map(q=>`<li>${e(q)}</li>`).join('')}</ol>
- <p class="muted small">Deze uitleg is voor absolute beginners en werkt volledig in de browser. JavaScript-voorbeelden worden in deze versie niet uitgevoerd. Een broncodecontrole is geen bewijs dat je de stof beheerst.</p>
+ <p class="muted small">Deze uitleg is voor absolute beginners en werkt volledig in de browser. Bij JavaScript-lessen kun je jouw code uitvoeren en console-uitvoer bekijken. De aparte broncodecontrole blijft een minimale structuurcontrole, geen bewijs dat je programma correct werkt.</p>
  </section>`
 }
 
@@ -83,14 +84,15 @@ function lessonPage(id){
  if(!access.has(id))return layout(head('Les vergrendeld')+`<div class="card"><p>Rond de eerdere lessen en verplichte modulecheck eerst af.</p>${link('/modules','Terug naar modules','button secondary')}</div>`)
  const module=modules.find(m=>m.lessons.some(l=>l.id===id))
  const lessonNumber=allLessons.findIndex(l=>l.id===id)+1
- const currentFile=lesson.rule.startsWith('css:')?'style.css':lesson.rule.startsWith('js:')?'script.js':'index.html'
+ const isJsLesson=lesson.rule.startsWith('js:')
+ const currentFile=lesson.rule.startsWith('css:')?'style.css':isJsLesson?'script.js':'index.html'
  if(state.lesson!==id||!state.files)return layout(head('Les laden…')+`<div class="card">Lokaal concept wordt opgehaald.</div>`)
  const code=state.files,completed=state.progress.lessons.includes(id)
  return layout(head(lesson.title,`${module.title} · ${lesson.durationMinutes} minuten gepland · ${completed?'Les geregistreerd':'Nog niet afgerond'}`)+`<div class="lesson-stack"><div class="lesson-intro-bar"><span>Les ${lessonNumber} van ${allLessons.length} · Module ${module.number} van ${modules.length}</span><button class="button secondary" type="button" data-action="go-practice">Direct naar de opdracht ↓</button></div><section class="card"><div class="eyebrow">THEORIE EN UITLEG</div><h2>Wat ga je leren?</h2><p>${e(lesson.introduction)}</p>${lesson.theory.map(t=>`<div class="theory-block"><h3>${e(t.heading)}</h3><p>${e(t.text)}</p></div>`).join('')}</section>
  ${renderLessonGuide(lesson)}
- <section id="practice-assignment" class="card assignment" tabindex="-1"><div class="eyebrow">PRAKTIJKOPDRACHT</div><h2>Zelf proberen</h2><p>${e(lesson.task)}</p><p><strong>Werk voor deze opdracht in:</strong> <code>${currentFile}</code>. Je kunt hieronder van bestand wisselen.</p><div class="notice info">${lesson.advanced?'JavaScript wordt hier alleen bewerkt, niet uitgevoerd.':'De HTML/CSS-preview werkt direct tijdens het typen.'} Officiële afronding vereist verbinding en servercontrole.</div></section>
+ <section id="practice-assignment" class="card assignment" tabindex="-1"><div class="eyebrow">PRAKTIJKOPDRACHT</div><h2>Zelf proberen</h2><p>${e(lesson.task)}</p><p><strong>Werk voor deze opdracht in:</strong> <code>${currentFile}</code>. Je kunt hieronder van bestand wisselen.</p><div class="notice info">${isJsLesson?'Schrijf je code in script.js en klik op Voer JavaScript uit. Bekijk de console en test eventuele knoppen in de afgeschermde preview.':'De HTML/CSS-preview werkt direct tijdens het typen.'} Officiële afronding vereist verbinding en servercontrole.</div></section>
  <div class="workspace"><section class="card editor-box"><div class="section-head"><div><div class="eyebrow">EDITOR</div><h2>Jouw code</h2><p class="muted small">Benodigd bestand: <strong>${currentFile}</strong></p></div><span class="save-indicator" id="save-indicator" role="status">${e(state.status)}</span></div><div class="tabs" role="group" aria-label="Bestand kiezen">${[['html','index.html'],['css','style.css'],['js','script.js']].map(([key,label])=>`<button data-action="tab" data-tab="${key}" class="tab ${state.tab===key?'active':''}" aria-pressed="${state.tab===key}">${label}</button>`).join('')}</div><label class="visually-hidden" for="editor">Code-editor voor ${e(state.tab)}</label><textarea id="editor" spellcheck="false" aria-label="${e(state.tab.toUpperCase())} codebewerking" autocapitalize="off" autocomplete="off" autocorrect="off">${e(code[state.tab])}</textarea><p class="muted small">Bewerken met regelnummers en syntaxkleuren zit niet in deze zelfstandige versie. Tab verlaat de editor normaal.</p></section>
- <section class="card result-box"><div class="eyebrow">LIVE PREVIEW</div><h2>Jouw resultaat</h2><iframe id="preview-frame" title="Afgeschermde voorbeeldpagina" sandbox="" referrerpolicy="no-referrer" srcdoc="${e(makePreview(code.html,code.css))}"></iframe><p class="muted small">Het iframe voert geen JavaScript uit en heeft geen toegang tot het hoofdplatform.</p></section></div>
+ <section class="card result-box">${isJsLesson?`<div class="eyebrow">JAVASCRIPT UITVOEREN</div><h2>Resultaat en console</h2><div class="actions js-run-actions"><button type="button" class="button primary" data-action="run-js">▶ Voer JavaScript uit</button><button type="button" class="button secondary" data-action="stop-js">Stop uitvoering</button></div><iframe id="js-preview-frame" title="Geïsoleerde JavaScript-preview" sandbox="allow-scripts" referrerpolicy="no-referrer" src="./sandbox.html#standby"></iframe><h3>Console-uitvoer</h3><div id="js-console" class="js-console" role="log" aria-label="JavaScript console" aria-live="polite">Klik op ‘Voer JavaScript uit’ om het resultaat te bekijken.</div><p class="muted small">JavaScript draait uitsluitend in een afgeschermde oefenomgeving, zonder toegang tot je account of internet. Fouten verschijnen hierboven. Je code uitvoeren is niet hetzelfde als de les behalen.</p>`:`<div class="eyebrow">LIVE PREVIEW</div><h2>Jouw resultaat</h2><iframe id="preview-frame" title="Afgeschermde voorbeeldpagina" sandbox="" referrerpolicy="no-referrer" srcdoc="${e(makePreview(code.html,code.css))}"></iframe><p class="muted small">Het iframe voert geen JavaScript uit en heeft geen toegang tot het hoofdplatform.</p>`}</section></div>
  <section class="card"><div class="eyebrow">HINTS EN FEEDBACK</div><h2>Controleer jezelf</h2><div class="actions"><button class="button secondary" data-action="hint">Toon hint (${state.hint}/${lesson.hints.length})</button><button class="button primary" data-action="check-code">Controleer mijn code</button>${!completed?`<button class="button secondary" data-action="complete-lesson">${state.mode==='demo'?'Demo-les markeren':'Les officieel registreren'}</button>`:'<span class="status completed">Les afgerond</span>'}</div>${state.hint?`<ol class="hints">${lesson.hints.slice(0,state.hint).map(h=>`<li>${e(h)}</li>`).join('')}</ol>`:''}<div id="feedback" role="status" aria-live="polite" class="${state.feedback?'notice info':''}">${e(state.feedback)}</div></section>
  <section class="card"><div class="eyebrow">VERDIEPING EN ZELFCONTROLE</div><h2>Na de eerste oplossing</h2><p>${e(lesson.extension||'Vergelijk je oplossing met de opdracht en verbeter de leesbaarheid.')}</p><p><strong>Reflectievraag:</strong> ${e(lesson.reflection||'Wat heb je geleerd?')}</p></section>
  <section class="card"><div class="eyebrow">CONCEPTBEHEER</div><h2>Conceptopslag</h2><p id="storage-detail" class="muted">${state.mode==='demo'?'Alleen deze browser, demonstratiemodus.':'Lokaal concept met optionele account-synchronisatie.'}</p><div class="actions"><button class="button secondary" data-action="save-draft">Lokaal opslaan</button>${state.mode==='account'?'<button class="button secondary" data-action="sync">Synchroniseer concept</button>':''}<button class="button secondary" data-action="export">Export JSON</button><label class="button secondary file-label">Import JSON<input id="import-file" type="file" accept=".json,application/json" hidden></label><button class="button ghost" data-action="reset-draft">Begin lokaal opnieuw</button></div>${state.conflict?'<div class="notice warn"><strong>Opslagconflict</strong><p>Het serverconcept is op een ander apparaat veranderd. We overschrijven niets automatisch.</p><button class="button secondary" data-action="use-server">Laad serverversie</button><button class="button secondary" data-action="keep-local">Bewaar mijn lokale versie apart als JSON</button></div>':''}</section>
@@ -150,7 +152,7 @@ function chooseRoute(){
  else{location.hash='#/login';return}
  const main=document.querySelector('#main');if(main)main.focus({preventScroll:true})
 }
-function render(){chooseRoute()}
+function render(){stopJavaScript();chooseRoute()}
 // Serialize IndexedDB writes so slow earlier saves never overwrite newer edits.
 let draftSaveQueue = Promise.resolve()
 async function saveLocal(){
@@ -269,6 +271,7 @@ app.addEventListener('input',ev=>{
  if(ev.target.id!=='editor'||!state.files)return
  state.files[state.tab]=ev.target.value
  state.editRevision+=1
+ if(findLesson(state.lesson)?.rule.startsWith('js:')){stopJavaScript();const out=document.querySelector('#js-console');if(out)out.textContent='Code gewijzigd. Klik op Voer JavaScript uit om de nieuwe versie te testen.'}
  // Feedback hoort bij de vorige codeversie; laat geen verouderde foutmelding staan.
  state.feedback=''
  const feedbackBox=document.querySelector('#feedback')
@@ -327,6 +330,8 @@ app.addEventListener('click',async ev=>{
   if(state.mode==='account')await auth.logout()
   state.expiredDraft=null;state.mode='guest';state.lesson=null;state.files=null;location.hash='#/login';render();return
  }
+ if(action==='run-js'){runJavaScript(findLesson(state.lesson),state.files,document.querySelector('#js-preview-frame'),document.querySelector('#js-console'));return}
+ if(action==='stop-js'){stopJavaScript({clear:true});return}
  if(action==='go-practice'){const target=document.getElementById('practice-assignment');target?.scrollIntoView({behavior:'auto',block:'start'});target?.focus({preventScroll:true});return}
  if(action==='tab'){state.tab=button.dataset.tab;render();document.getElementById('editor')?.focus({preventScroll:true});return}
  if(action==='hint'){const l=findLesson(state.lesson);state.hint=Math.min(state.hint+1,l.hints.length);render();return}

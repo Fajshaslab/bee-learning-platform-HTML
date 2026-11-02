@@ -184,6 +184,24 @@ class BeeBrowserJourney(unittest.TestCase):
                 expect(self.page.locator(f'[data-action="tab"][data-tab="{file_type}"]')).to_have_attribute('aria-pressed', 'true')
                 self.page.locator(f'[data-action="tab"][data-tab="{file_type}"]').click()
                 self.page.locator('#editor').fill(code[file_type])
+                if file_type == 'js' and not os.getenv('BEE_BROWSER_INLINE'):
+                    # Execute the actual student code in the isolated JavaScript runtime.
+                    if lesson['id'] == 'm6-l1':
+                        self.page.locator('#editor').fill('const = ;')
+                        self.page.locator('[data-action="run-js"]').click()
+                        expect(self.page.locator('#js-console')).to_contain_text('SyntaxError', timeout=8000)
+                        self.page.locator('#editor').fill(code[file_type])
+                    expect(self.page.locator('#js-preview-frame')).to_have_attribute('sandbox', 'allow-scripts')
+                    self.page.locator('[data-action="run-js"]').click()
+                    if lesson['id'] in ('m7-l4','m8-l3'):
+                        self.page.frame_locator('#js-preview-frame').locator('button').click(timeout=8000)
+                        expect(self.page.locator('#js-console')).to_contain_text('Geklikt!' if lesson['id']=='m7-l4' else 'Welkom!', timeout=8000)
+                    elif lesson['id'] == 'm7-l3':
+                        expect(self.page.locator('#js-console')).to_contain_text('<h1 id="titel">', timeout=8000)
+                    elif 'console.log' in code[file_type]:
+                        expect(self.page.locator('.js-line-log').last).to_be_visible(timeout=8000)
+                    else:
+                        expect(self.page.locator('#js-console')).to_contain_text('Uitgevoerd zonder console-uitvoer', timeout=8000)
                 self.page.locator('[data-action="check-code"]').click()
                 expect(self.page.locator('#feedback')).to_contain_text('De vereiste code-onderdelen zijn gevonden.')
                 self.page.locator('[data-action="complete-lesson"]').click()

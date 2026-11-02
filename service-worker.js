@@ -1,10 +1,10 @@
 /* BEE Learning Platform: app-shell offline cache. No API/auth data is cached. */
-const VERSION = 'bee-shell-2026-assessment-3'
+const VERSION = 'bee-shell-2026-javascript-v24'
 const ROOT = new URL('./', self.location.href)
 const ASSETS = [
-  './', './index.html', './config.js', './assets/styles.css',
+  './', './index.html', './sandbox.html', './config.js', './assets/styles.css',
   './src/main.js', './src/auth.js', './src/storage.js',
-  './src/learning.js', './src/assessment.js', './data/curriculum.js', './data/lesson-guides.js',
+  './src/learning.js', './src/assessment.js', './src/js-runner.js', './data/curriculum.js', './data/lesson-guides.js',
 ].map(path => new URL(path, ROOT).href)
 
 self.addEventListener('install', event => {

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'; worker-src blob:; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; form-action 'none'; base-uri 'none'; frame-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Afgeschermde JavaScript-oefening</title>
+  <style>body{margin:16px;font:16px/1.5 Arial,sans-serif;color:#17191c;background:#fff}button{cursor:pointer}</style>
+</head>
+<body>
+  <main id="bee-exercise"></main>
+  <script>
+    // This document MUST only be framed with sandbox="allow-scripts" WITHOUT allow-same-origin.
+    // Untrusted student code runs with an opaque origin and no external connections.
+    (() => {
+      'use strict';
+      const root = document.getElementById('bee-exercise')
+      let active = null
+      let worker = null
+      let timer = null
+      const stringify = value => {
+        if (value instanceof Element) return `<${value.tagName.toLowerCase()}${value.id ? ' id="'+value.id+'"':''}>`
+        if (value instanceof Error) return `${value.name}: ${value.message}`
+        if (typeof value === 'string') return value
+        if (value === undefined) return 'undefined'
+        try { return JSON.stringify(value) ?? String(value) } catch { return String(value) }
+      }
+      const send = (kind, ...args) => {
+        if (!active) return
+        parent.postMessage({type:'bee-js-result',id:active,kind,text:args.map(stringify).join(' ').slice(0,2000)},'*')
+      }
+      for (const key of ['log','info','warn','error']) console[key] = (...args) => send(key,...args)
+      self.addEventListener('error', event => {
+        send('error',`${event.message} (regel ${event.lineno || '?'})`)
+        event.preventDefault()
+      })
+      self.addEventListener('unhandledrejection', event => {
+        send('error','Onverwerkte Promise-fout:',event.reason)
+        event.preventDefault()
+      })
+      const workerBody = `
+        function printable(v) {
+          if (typeof v === 'string') return v;
+          if (v === undefined) return 'undefined';
+          if (v instanceof Error) return v.name + ': ' + v.message;
+          try { return JSON.stringify(v) ?? String(v); } catch { return String(v); }
+        }
+        function send(kind,args) { postMessage({kind, text:args.map(printable).join(' ').slice(0,2000)}); }
+        for (const kind of ['log','info','warn','error']) console[kind] = (...args) => send(kind,args);
+        self.addEventListener('error', e => {send('error',[e.message]);e.preventDefault()});
+        self.addEventListener('unhandledrejection', e => {send('error',[e.reason]);e.preventDefault()});
+        onmessage = e => {
+          try { new Function(e.data)(); postMessage({kind:'done'}); }
+          catch(error) {send('error',[error]); postMessage({kind:'done'}); }
+        };
+      `
+      addEventListener('message', event => {
+        if (event.source !== parent || !event.data || event.data.type !== 'bee-run') return
+        if (active) return // one fresh iframe per run
+        const data=event.data
+        if (typeof data.id !== 'string' || !['worker','dom'].includes(data.mode) ||
+            ['html','css','js'].some(k => typeof data[k] !== 'string' || data[k].length > 100000)) return
+        active=data.id
+        const style = document.createElement('style')
+        style.textContent = data.css
+        document.head.appendChild(style)
+        // innerHTML-inserted script tags do not run. The student's own JS runs below.
+        root.innerHTML = data.html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi,'')
+        if (data.mode === 'worker') {
+          try {
+            const url = URL.createObjectURL(new Blob([workerBody],{type:'text/javascript'}))
+            worker = new Worker(url)
+            URL.revokeObjectURL(url)
+            worker.onmessage = ev => {
+              if (ev.data?.kind==='done') {send('done');clearTimeout(timer);worker.terminate();return}
+              if (['log','info','warn','error'].includes(ev.data?.kind)) send(ev.data.kind,ev.data.text)
+            }
+            worker.onerror = ev => {send('error',ev.message || 'Worker kon niet starten');ev.preventDefault()}
+            worker.postMessage(data.js)
+            timer=setTimeout(()=>{worker.terminate();send('error','Uitvoering gestopt na 3 seconden (mogelijk oneindige lus).');send('done')},3000)
+          } catch(error) {send('error',error);send('done')}
+        } else {
+          // DOM examples use the real sandbox document and can handle button clicks.
+          // DOM code is never used as official grading evidence.
+          try {new Function(data.js)()} catch(error) {send('error',error)}
+          send('done')
+        }
+      })
+    })()
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+BEE LEARNING PLATFORM — FASE 2: JAVASCRIPT UITVOEREN (v2.4)
+=========================================================
+
+Dit is een GERICHTE UPDATE op jouw bestaande v2.3-project. Het is geen nieuwe
+losse installatie. Je echte studentenaccount, Supabase-project en opgeslagen
+voortgang hoeven niet te veranderen.
+
+STAP 1 — BESTANDEN KOPIEREN
+1. Maak voor de zekerheid een kopie van je huidige BEE-projectmap.
+2. Pak deze ZIP uit.
+3. Kopieer de bestanden en mappen UIT de map 'bee-learning-platform' naar
+   jouw bestaande projectmap 'bee-learning-platform'.
+4. Sta samenvoegen en overschrijven van bestanden met dezelfde naam toe.
+5. Verwijder jouw bestaande map niet, want jouw config.js en .git-map moeten
+   behouden blijven.
+
+DIT PAKKET BEVAT GEEN config.js EN GEEN SQL-MIGRATIE.
+Je hoeft dus niets te wijzigen in Supabase.
+
+STAP 2 — TESTEN IN VS CODE
+Voer in de bestaande projectmap achtereenvolgens uit:
+  npm run check
+  npm test
+  npm run build
+
+Als Python en Playwright al zijn geinstalleerd, test ook de uitvoeromgeving:
+  py -m unittest discover -s tests/e2e -p "test_js_sandbox.py" -v
+
+De bestaande volledige end-to-end tests worden op GitHub uitgevoerd bij push.
+
+STAP 3 — NAAR GITHUB
+  git add .
+  git commit -m "Add safe JavaScript runner v2.4"
+  git push origin main
+
+Controleer dat zowel GitHub Pages als de automatische browsertests groen zijn.
+Pas daarna vertrouwen op de online nieuwe functionaliteit.
+
+WAT IS NIEUW?
+- In alle 11 JavaScript-lessen: 'Voer JavaScript uit', 'Stop uitvoering',
+  aparte preview en console-uitvoer.
+- Gewone JS-code draait in een geisoleerde Web Worker. Een vastloper wordt
+  na 3 seconden afgebroken.
+- DOM-opdrachten (querySelector, addEventListener) draaien in een apart
+  gesandboxed iframe. Studenten kunnen daar op een knop klikken.
+- Syntaxisfouten en console.log worden zichtbaar in begrijpelijke vorm.
+- Verouderde lessen die zeiden dat JS niet werkt, zijn bijgewerkt.
+- De strengere beoordeling van v2.2 blijft intact. JS uitvoeren geeft NIET
+  automatisch een officiële lesafronding.
+
+BELANGRIJKE GRENZEN
+- Geen toegang vanuit de code tot Supabase, studentenaccounts of internet.
+- Een DOM-script met een oneindige lus kan alsnog een browsertab laten vastlopen.
+  In dat geval de pagina vernieuwen; de editor bewaart conceptcode lokaal.
+- Dit is een oefenomgeving, geen complete JavaScript-debugger of serverruntime.
+- De echte browser+website-run moet nog op jouw GitHub Actions slagen;
+  alleen losse sandbox-tests zijn hier daadwerkelijk in Chromium uitgevoerd.
+
+Zie docs/JAVASCRIPT_UITVOEREN_V24.md voor de technische toetsing.

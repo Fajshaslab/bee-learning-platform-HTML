@@ -42,7 +42,7 @@ export const lessonGuides = {
     "explanation": [
       "In index.html zet je de h1 en de p: dat zijn HTML-elementen, dus onderdelen met betekenis.",
       "Voor een rode kop zou je later CSS gebruiken; daarvoor hoef je niet de woorden van de titel te veranderen.",
-      "Bijvoorbeeld een knop die na het klikken een bericht toont, vraagt uiteindelijk JavaScript. Dat voeren we om veiligheidsredenen nog niet in deze preview uit."
+      "Bijvoorbeeld een knop die na het klikken een bericht toont, vraagt uiteindelijk JavaScript. Dat oefen je later veilig in een geïsoleerde JavaScript-preview."
     ],
     "steps": [
       "Lees de drie rollen hierboven en open index.html.",
@@ -699,23 +699,23 @@ export const lessonGuides = {
     "concepts": [
       "JavaScript is een programmeertaal waarmee een pagina op gebeurtenissen kan reageren en informatie kan verwerken.",
       "console.log(...) is een instructie die een waarde normaal in de ontwikkelaarsconsole schrijft. Een string (tekst) staat tussen aanhalingstekens.",
-      "In dit leerplatform mag student-JavaScript niet worden uitgevoerd in de preview. We leren hier het schrijven en lezen; directe JS-uitvoering voegen we pas toe met aparte isolatie."
+      "Student-JavaScript wordt in een aparte, afgeschermde uitvoeromgeving gestart. Druk zelf op Voer JavaScript uit; je code draait niet tijdens het typen."
     ],
     "example": "console.log(\"Hallo vanuit JavaScript!\");",
     "language": "js",
     "explanation": [
       "console verwijst naar de ontwikkelaarsconsole en .log is een methode om een bericht te schrijven.",
       "Tussen de haakjes staat de waarde die je wilt loggen. De dubbele aanhalingstekens maken er tekst van.",
-      "De puntkomma sluit de instructie af; dit is een gebruikelijke schrijfwijze. In deze editor verschijnt bewust geen console-output."
+      "De puntkomma sluit de instructie af; dit is een gebruikelijke schrijfwijze. Klik op Voer JavaScript uit om het bericht in de console te zien."
     ],
     "steps": [
       "Open het tabblad script.js en laat de commentaarregel gerust staan.",
       "Typ een nieuwe regel: console.log(\"Ik leer JavaScript\");",
       "Controleer de punt vóór log, de haakjes en de aanhalingstekens.",
-      "Leg in je eigen woorden uit wat deze code zou doen in een echte JavaScript-console."
+      "Klik op Voer JavaScript uit en lees het bericht in de console. Verander de tekst en probeer opnieuw."
     ],
-    "expected": "Een geldig ogende console.log-regel in script.js. Er verschijnt bewust geen uitvoer in de preview.",
-    "pitfall": "De HTML-preview is geen JavaScript-console. Het ontbreken van een melding betekent hier niet automatisch dat je code fout is.",
+    "expected": "Een werkende console.log-regel. Na Voer JavaScript uit verschijnt jouw tekst in de console.",
+    "pitfall": "Bij JavaScript verschijnt uitvoer onder Console-uitvoer, niet als tekst op de HTML-pagina. Gebruik console.log als je iets wilt zien.",
     "questions": [
       "Waarom staat tekst tussen aanhalingstekens?",
       "Waar zou console.log normaal zijn bericht tonen?"
@@ -742,7 +742,7 @@ export const lessonGuides = {
       "Voeg eventueel console.log(mijnNaam); toe om te laten zien hoe je de variabele zou gebruiken.",
       "Bedenk waarom je de variabelenaam zonder spaties schrijft."
     ],
-    "expected": "Een const-declaratie met een duidelijke naam en een stringwaarde. Er is geen JavaScript-uitvoer in deze preview.",
+    "expected": "Een const-declaratie met een duidelijke naam en stringwaarde. Voeg console.log(mijnNaam) toe om de waarde in de console te zien.",
     "pitfall": "Schrijf niet const mijn naam = ...; Een variabelenaam mag geen spatie bevatten.",
     "questions": [
       "Wat is het verschil tussen mijnNaam en \"mijnNaam\"?",
@@ -789,7 +789,7 @@ export const lessonGuides = {
     "explanation": [
       "const heeftToegang bewaart true, dus de voorwaarde is waar.",
       "if (heeftToegang) controleert de boolean. De ronde haakjes zijn onderdeel van de if-syntax.",
-      "De accolades bevatten de instructie die normaal zou uitvoeren. In onze preview wordt JavaScript niet gestart."
+      "De accolades bevatten de instructie. Klik op Voer JavaScript uit: als de voorwaarde true is, zie je de melding."
     ],
     "steps": [
       "Open script.js en maak een const met een boolean.",
@@ -797,7 +797,7 @@ export const lessonGuides = {
       "Zet binnen de accolades een console.log met een bericht en sluit daarna af met }.",
       "Lees je code alsof je een beslisboom uitlegt: als dit waar is, dan gebeurt dat."
     ],
-    "expected": "Een if-blok met geldige haakjes en accolades, zonder daadwerkelijke uitvoering.",
+    "expected": "Een if-blok met geldige haakjes en accolades. Voer de code uit en vergelijk true met false.",
     "pitfall": "Verwar = (toewijzen) niet met === (strikt vergelijken). Als je simpelweg een boolean gebruikt, is geen vergelijking nodig.",
     "questions": [
       "Wat gebeurt er met het blok als de voorwaarde false is?",
@@ -817,7 +817,7 @@ export const lessonGuides = {
     "explanation": [
       "function begint de definitie; begroet is de zelfgekozen functienaam.",
       "() is voorlopig leeg omdat deze functie geen parameters heeft.",
-      "De accolades bevatten de instructie. De regel begroet(); zou de functie normaal aanroepen, maar in deze preview voeren we JS niet uit."
+      "De accolades bevatten de instructie. De regel begroet(); roept de functie aan. Klik op Voer JavaScript uit om het bericht te zien."
     ],
     "steps": [
       "Open script.js en maak function toonBericht() { op een nieuwe regel.",
@@ -845,7 +845,7 @@ export const lessonGuides = {
     "explanation": [
       "const bewaart de lijst in één variabele; de vierkante haken maken er een array van.",
       "De komma’s scheiden de strings. De lijst bevat hier drie onderdelen.",
-      "De index [0] verwijst naar het eerste onderdeel. Dit is JavaScript-code; de preview voert hem niet uit."
+      "De index [0] verwijst naar het eerste onderdeel. Na uitvoeren zie je dat onderdeel in de console."
     ],
     "steps": [
       "Open script.js en maak const favorieteDingen = [\"muziek\", \"films\", \"boeken\"];.",
@@ -894,7 +894,7 @@ export const lessonGuides = {
     "concepts": [
       "DOM staat voor Document Object Model: de objectstructuur die de browser van HTML maakt.",
       "document.querySelector(\"h1\") zoekt het eerste h1-element op de pagina. Je kunt ook een class kiezen met . of een id met #.",
-      "Het resultaat is een elementobject of null als er geen passend element bestaat. In deze preview wordt de JS-code niet uitgevoerd."
+      "Het resultaat is een elementobject of null als er geen passend element bestaat. Voer de code uit om dat in de console te bekijken."
     ],
     "example": "const titel = document.querySelector(\"#titel\");\nconsole.log(titel);",
     "language": "js",
@@ -909,7 +909,7 @@ export const lessonGuides = {
       "Controleer dat je querySelector met hoofdletter S schrijft.",
       "Leg in een commentaar uit waarom #titel overeenkomt met het id in HTML."
     ],
-    "expected": "Een querySelector-aanroep die een bestaand HTML-element aanwijst. Er verschijnt geen runtime-resultaat in deze versie.",
+    "expected": "Een querySelector-aanroep die een bestaand HTML-element aanwijst. Gebruik console.log om het gevonden element in de console te zien.",
     "pitfall": "document.querySelector(\"titel\") zoekt een element met tagnaam titel; voor id=\"titel\" moet je \"#titel\" schrijven.",
     "questions": [
       "Wat betekent het # in een CSS/DOM-selector?",
@@ -929,7 +929,7 @@ export const lessonGuides = {
     "explanation": [
       "De HTML bevat een button-element. querySelector(\"button\") zou dat element selecteren.",
       "De functie toonBericht beschrijft wat er bij de klik moet gebeuren.",
-      "addEventListener verbindt het klik-evenement aan de functie. Onze afgeschermde preview voert de JS-code nog niet uit."
+      "addEventListener verbindt het klik-evenement aan de functie. Voer JavaScript uit en klik daarna op de knop in de preview."
     ],
     "steps": [
       "Bekijk het button-element in index.html.",
@@ -937,7 +937,7 @@ export const lessonGuides = {
       "Schrijf een functie met console.log en registreer die met knop.addEventListener(\"click\", toonBericht);.",
       "Controleer de schrijfwijze van addEventListener en de aanhalingstekens rond click."
     ],
-    "expected": "Een eventlistener op de knop in script.js. Er wordt bewust geen klikactie uitgevoerd in de preview.",
+    "expected": "Een werkende eventlistener. Na Voer JavaScript uit verschijnt bij een klik op de knop de melding Geklikt! in de console.",
     "pitfall": "Schrijf bij het registreren niet toonBericht() als je de functie wilt meegeven: daarmee roep je hem meteen aan.",
     "questions": [
       "Wat is de gebeurtenisnaam bij een klik?",
@@ -1033,7 +1033,7 @@ export const lessonGuides = {
     "concepts": [
       "Een functie bundelt herbruikbare instructies en krijgt een herkenbare naam.",
       "Een eventlistener kan later een functie aan een klik koppelen. Vaak heb je eerst een DOM-element nodig via querySelector.",
-      "We behandelen de code hier tekstueel; de ingebouwde preview voert JavaScript nog niet uit. Dat betekent dat je de logica moet uitleggen zonder zichtbare klikuitvoering."
+      "In deze les voer je de JavaScript-code uit in een afgeschermde preview. Klik op de knop en kijk wat console.log toont."
     ],
     "example": "function begroet() {\n  console.log(\"Welkom!\");\n}\nconst knop = document.querySelector(\"button\");\nknop.addEventListener(\"click\", begroet);",
     "language": "js",
@@ -1045,14 +1045,14 @@ export const lessonGuides = {
     "steps": [
       "Open script.js en definieer een functie met function en een duidelijke naam.",
       "Schrijf in de functie een console.log om de uitvoering begrijpelijk te maken.",
-      "Voeg een commentaar toe die uitlegt hoe je deze functie later aan een knop kunt koppelen.",
-      "Controleer je accolades en dat de functie een naam heeft."
+      "Selecteer de knop met document.querySelector(\"button\") en verbind je functie via addEventListener(\"click\", ...).",
+      "Klik op Voer JavaScript uit, klik daarna op de knop in de preview en controleer de console."
     ],
-    "expected": "Een leesbare functiedefinitie met een eigen naam. Geen JavaScript-uitvoering in de preview.",
+    "expected": "Een functiedefinitie die je met een klik op de knop kunt uitvoeren. In de console verschijnt je bericht.",
     "pitfall": "Schrijf niet per ongeluk de functienaam alleen als tekst tussen aanhalingstekens wanneer je hem wilt aanroepen.",
     "questions": [
       "Hoe roep je een functie aan?",
-      "Waarom voeren we JS-code in deze preview nog niet uit?"
+      "Waarom zie je pas na het klikken een bericht in de console?"
     ]
   },
   "m8-l4": {

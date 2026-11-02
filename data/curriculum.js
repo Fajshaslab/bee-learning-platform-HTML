@@ -41,7 +41,7 @@ export const modules = [
         ],
         "rule": "h1,p",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -76,7 +76,7 @@ export const modules = [
         ],
         "rule": "h1,p",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -111,7 +111,7 @@ export const modules = [
         ],
         "rule": "h1,p",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -146,7 +146,7 @@ export const modules = [
         ],
         "rule": "h1,a",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -181,7 +181,7 @@ export const modules = [
         ],
         "rule": "h1,ul,li",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       }
     ],
@@ -277,7 +277,7 @@ export const modules = [
         ],
         "rule": "h1,p",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -312,7 +312,7 @@ export const modules = [
         ],
         "rule": "ul,li",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -347,7 +347,7 @@ export const modules = [
         ],
         "rule": "a",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -382,7 +382,7 @@ export const modules = [
         ],
         "rule": "img",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -417,7 +417,7 @@ export const modules = [
         ],
         "rule": "h1,p,ul",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       }
     ],
@@ -513,7 +513,7 @@ export const modules = [
         ],
         "rule": "main,section",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -548,7 +548,7 @@ export const modules = [
         ],
         "rule": "form,input",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -583,7 +583,7 @@ export const modules = [
         ],
         "rule": "label,input",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -618,7 +618,7 @@ export const modules = [
         ],
         "rule": "table,td,th",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -653,7 +653,7 @@ export const modules = [
         ],
         "rule": "article,h2,p",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       }
     ],
@@ -749,7 +749,7 @@ export const modules = [
         ],
         "rule": "css:h1:color",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -784,7 +784,7 @@ export const modules = [
         ],
         "rule": "css:body:background-color",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -819,7 +819,7 @@ export const modules = [
         ],
         "rule": "css:body:font-family",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -854,7 +854,7 @@ export const modules = [
         ],
         "rule": "css:p:padding",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -889,7 +889,7 @@ export const modules = [
         ],
         "rule": "css:p:border",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       }
     ],
@@ -985,7 +985,7 @@ export const modules = [
         ],
         "rule": "css:.container:display",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1020,7 +1020,7 @@ export const modules = [
         ],
         "rule": "css:.container:flex-direction",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1055,7 +1055,7 @@ export const modules = [
         ],
         "rule": "css:.grid:display",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1090,7 +1090,7 @@ export const modules = [
         ],
         "rule": "css:@media",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1125,7 +1125,7 @@ export const modules = [
         ],
         "rule": "css:.container:gap",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       }
     ],
@@ -1193,7 +1193,7 @@ export const modules = [
         "id": "m6-l1",
         "title": "Wat is JavaScript?",
         "durationMinutes": 60,
-        "introduction": "JavaScript maakt webpagina’s interactief. De JS-editor toont code, maar voert deze in deze versie niet uit.",
+        "introduction": "JavaScript maakt webpagina’s interactief. In de editor schrijf je code die je met de knop Voer JavaScript uit kunt testen.",
         "theory": [
           {
             "heading": "Wat betekent dit?",
@@ -1205,23 +1205,23 @@ export const modules = [
           },
           {
             "heading": "Let hierop",
-            "text": "Deze leeromgeving voert JavaScript nog niet uit; de editor controleert voorlopig alleen de broncodevorm."
+            "text": "Voer je code uit om het werkelijke resultaat en eventuele foutmeldingen te bekijken. Controleer mijn code blijft een aparte structuurcontrole."
           }
         ],
         "task": "Schrijf een console.log-regel.",
         "initial": {
           "html": "<h1>JavaScript leren</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
-          "Wat heb je nodig? JavaScript maakt webpagina’s interactief. De JS-editor toont code, maar voert deze in deze versie niet uit.",
+          "Wat heb je nodig? JavaScript maakt webpagina’s interactief. In de editor schrijf je code die je met de knop Voer JavaScript uit kunt testen.",
           "Let op de vereiste vorm: js:console.log.",
           "Werk eerst de kleinste versie uit; breid daarna pas uit."
         ],
         "rule": "js:console.log",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1247,7 +1247,7 @@ export const modules = [
         "initial": {
           "html": "<h1>Variabelen</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? Met const en let bewaar je waarden; const gebruik je als de binding niet opnieuw wordt toegewezen.",
@@ -1256,7 +1256,7 @@ export const modules = [
         ],
         "rule": "js:const",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1282,7 +1282,7 @@ export const modules = [
         "initial": {
           "html": "<h1>Datatypes</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? Strings, numbers en booleans representeren verschillende soorten waarden.",
@@ -1291,7 +1291,7 @@ export const modules = [
         ],
         "rule": "js:boolean",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1317,7 +1317,7 @@ export const modules = [
         "initial": {
           "html": "<h1>Keuzes</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? Met if kies je welk stuk code wordt uitgevoerd wanneer een voorwaarde waar is.",
@@ -1326,7 +1326,7 @@ export const modules = [
         ],
         "rule": "js:if",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1352,7 +1352,7 @@ export const modules = [
         "initial": {
           "html": "<h1>Functies</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? Een functie groepeert herbruikbare instructies en kan parameters accepteren.",
@@ -1361,7 +1361,7 @@ export const modules = [
         ],
         "rule": "js:function",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       }
     ],
@@ -1448,7 +1448,7 @@ export const modules = [
         "initial": {
           "html": "<h1>Mijn lijst</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? Een array bewaart meerdere items in een vaste volgorde.",
@@ -1457,7 +1457,7 @@ export const modules = [
         ],
         "rule": "js:array",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1483,7 +1483,7 @@ export const modules = [
         "initial": {
           "html": "<h1>Objecten</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? Een object groepeert eigenschappen en bijbehorende waarden.",
@@ -1492,7 +1492,7 @@ export const modules = [
         ],
         "rule": "js:object",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1518,7 +1518,7 @@ export const modules = [
         "initial": {
           "html": "<h1 id=\"titel\">DOM</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? document.querySelector zoekt een element in het document.",
@@ -1527,7 +1527,7 @@ export const modules = [
         ],
         "rule": "js:querySelector",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1553,7 +1553,7 @@ export const modules = [
         "initial": {
           "html": "<button>Klik</button>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? addEventListener koppelt een functie aan een gebeurtenis zoals click.",
@@ -1562,7 +1562,7 @@ export const modules = [
         ],
         "rule": "js:addEventListener",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1588,7 +1588,7 @@ export const modules = [
         "initial": {
           "html": "<h1>Debugging</h1>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? Met console.log en zorgvuldig lezen van foutmeldingen begrijp je wat de code doet.",
@@ -1597,7 +1597,7 @@ export const modules = [
         ],
         "rule": "js:console.log",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       }
     ],
@@ -1693,7 +1693,7 @@ export const modules = [
         ],
         "rule": "h1,p",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1728,7 +1728,7 @@ export const modules = [
         ],
         "rule": "css:body:background-color",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1747,14 +1747,14 @@ export const modules = [
           },
           {
             "heading": "Let hierop",
-            "text": "Een plan voor interactie is nog geen uitvoering; de JS-preview blijft hier uit."
+            "text": "Voer de JavaScript-code uit en klik in de preview op de knop om de interactie te testen."
           }
         ],
         "task": "Schrijf een function of arrowfunctie.",
         "initial": {
-          "html": "<h1>Mijn interactie</h1>",
+          "html": "<h1>Mijn interactie</h1>\n<button type=\"button\">Klik om te begroeten</button>",
           "css": "",
-          "js": "// Deze JS-code wordt niet uitgevoerd in de preview.\n"
+          "js": "// Klik op Voer JavaScript uit en bekijk de console.\n"
         },
         "hints": [
           "Wat heb je nodig? Variabelen, functies en events kunnen samen een interactie vormen.",
@@ -1763,7 +1763,7 @@ export const modules = [
         ],
         "rule": "js:function",
         "advanced": true,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1798,7 +1798,7 @@ export const modules = [
         ],
         "rule": "h1,p",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       },
       {
@@ -1833,7 +1833,7 @@ export const modules = [
         ],
         "rule": "h1,ul",
         "advanced": false,
-        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat verwacht je dat de JavaScript-code zou doen? Leg het in je eigen woorden uit.",
+        "reflection": "Wat heb je aangepast? Wat gebeurde er in de preview of wat liet de console zien na het uitvoeren van JavaScript? Leg het in je eigen woorden uit.",
         "extension": "Werk je eerste oplossing verder uit met een duidelijke naam, een extra voorbeeld of verbeterde toegankelijkheid. Vergelijk daarna met de opdracht."
       }
     ],

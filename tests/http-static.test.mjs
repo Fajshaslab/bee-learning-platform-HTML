@@ -32,7 +32,7 @@ test('ontwikkelserver levert de applicatie en weigert private bestanden', async 
   await waitForSite(origin+'/')
   const routes = [
    ['/',200],['/index.html',200],['/src/main.js',200],
-   ['/src/assessment.js',200],['/data/curriculum.js',200],['/data/lesson-guides.js',200],['/service-worker.js',200],
+   ['/src/assessment.js',200],['/src/js-runner.js',200],['/sandbox.html',200],['/data/curriculum.js',200],['/data/lesson-guides.js',200],['/service-worker.js',200],
    ['/supabase/schema.sql',404],['/tests/sql.test.mjs',404],
    ['/README.md',404],['/.gitignore',404],['/scripts/pilot-live-check.mjs',404],
   ]
