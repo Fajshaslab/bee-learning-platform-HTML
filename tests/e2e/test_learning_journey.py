@@ -110,6 +110,15 @@ class BeeBrowserJourney(unittest.TestCase):
     def open_hash(self, route):
         self.page.evaluate('(route) => { location.hash = route }', f'#/{route}')
 
+    def test_00_unsandboxed_runtime_cannot_execute_student_code(self):
+        if os.getenv('BEE_BROWSER_INLINE'):
+            self.skipTest('Requires a real HTTP origin, not a transient about:blank page')
+        self.page.goto(self.base + 'sandbox.html', wait_until='domcontentloaded')
+        self.page.evaluate('''() => window.postMessage({type:'bee-run',id:'attack',mode:'dom',html:'<p>x</p>',css:'',js:'document.documentElement.dataset.injected="yes"'}, '*')''')
+        self.page.wait_for_timeout(150)
+        self.assertIsNone(self.page.locator('html').get_attribute('data-injected'))
+        self.assertIn('afgeschermde leeromgeving', self.page.locator('body').inner_text())
+
     def test_01_guest_cannot_open_dashboard_or_locked_lesson(self):
         self.open_hash('dashboard')
         expect(self.page.locator('h1')).to_have_text('Inloggen')

@@ -1,5 +1,5 @@
 /* BEE Learning Platform: app-shell offline cache. No API/auth data is cached. */
-const VERSION = 'bee-shell-2026-javascript-v24'
+const VERSION = 'bee-shell-2026-security-v241'
 const ROOT = new URL('./', self.location.href)
 const ASSETS = [
   './', './index.html', './sandbox.html', './config.js', './assets/styles.css',

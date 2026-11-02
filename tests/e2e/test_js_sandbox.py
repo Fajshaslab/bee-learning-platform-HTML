@@ -26,7 +26,10 @@ class JavaScriptSandboxBrowser(unittest.TestCase):
 
     def setUp(self):
         self.page = self.browser.new_page()
-        self.page.set_content((ROOT / 'sandbox.html').read_text(encoding='utf-8'))
+        sandbox_html = (ROOT / 'sandbox.html').read_text(encoding='utf-8')
+        self.page.set_content('<!doctype html><iframe id="sandbox" sandbox="allow-scripts"></iframe>')
+        self.page.locator('#sandbox').evaluate('(frame, html) => { frame.srcdoc = html }', sandbox_html)
+        self.page.frame_locator('#sandbox').locator('main').wait_for(state='attached')
         self.page.evaluate('''() => {
           window.beeOutput = [];
           addEventListener('message', e => {
@@ -38,7 +41,7 @@ class JavaScriptSandboxBrowser(unittest.TestCase):
         self.page.close()
 
     def run_code(self, js, mode='worker', html='<h1>Oefening</h1>'):
-        self.page.evaluate('''data => window.postMessage(data,'*')''', {
+        self.page.locator('#sandbox').evaluate('''(frame,data) => frame.contentWindow.postMessage(data,'*')''', {
             'type': 'bee-run', 'id': 'test-run', 'mode': mode,
             'html': html, 'css': '', 'js': js,
         })
@@ -67,13 +70,13 @@ class JavaScriptSandboxBrowser(unittest.TestCase):
         self.run_code('''const knop=document.querySelector("button");
           knop.addEventListener("click",()=>console.log("Geklikt!"));''',mode='dom',html='<button>Klik</button>')
         self.wait_for('done')
-        self.page.locator('button').click()
+        self.page.frame_locator('#sandbox').locator('button').click()
         self.page.wait_for_function('window.beeOutput.some(o=>o.text==="Geklikt!")')
 
     def test_script_tag_in_html_does_not_run(self):
         self.run_code('console.log("veilig")',mode='dom',html='<script>document.body.dataset.injected="yes"</script><h1>Hoi</h1>')
         self.wait_for('done')
-        self.assertIsNone(self.page.locator('body').get_attribute('data-injected'))
+        self.assertIsNone(self.page.frame_locator('#sandbox').locator('body').get_attribute('data-injected'))
 
 
 if __name__ == '__main__':

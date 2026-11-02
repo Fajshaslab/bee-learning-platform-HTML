@@ -15,6 +15,16 @@
     // Untrusted student code runs with an opaque origin and no external connections.
     (() => {
       'use strict';
+      // DENY execution unless the page has an opaque origin. Without this check,
+      // another website could frame sandbox.html WITHOUT the HTML sandbox attribute
+      // and post arbitrary JavaScript into a same-origin BEE document. That would
+      // expose browser-stored login tokens. GitHub Pages cannot send a CSP sandbox
+      // response header, so this runtime guard is essential.
+      if (globalThis.origin !== 'null') {
+        document.body.textContent = 'Deze oefenpagina mag alleen in de afgeschermde leeromgeving draaien.'
+        return
+      }
+      const expectedParentOrigin = /^https?:$/.test(location.protocol) ? location.origin : 'null'
       const root = document.getElementById('bee-exercise')
       let active = null
       let worker = null
@@ -56,7 +66,7 @@
         };
       `
       addEventListener('message', event => {
-        if (event.source !== parent || !event.data || event.data.type !== 'bee-run') return
+        if (event.source !== parent || event.origin !== expectedParentOrigin || !event.data || event.data.type !== 'bee-run') return
         if (active) return // one fresh iframe per run
         const data=event.data
         if (typeof data.id !== 'string' || !['worker','dom'].includes(data.mode) ||

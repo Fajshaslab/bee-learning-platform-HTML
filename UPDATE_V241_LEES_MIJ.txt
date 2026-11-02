@@ -1,0 +1,36 @@
+BEE LEARNING PLATFORM — VEILIGHEIDSUPDATE v2.4.1
+================================================
+
+Deze gerichte patch volgt op v2.4. Installeer haar vóórdat echte studenten de
+JavaScript-oefenfunctie gebruiken.
+
+WAAROM?
+De losse sandbox.html-pagina accepteerde JavaScript-berichten wanneer een
+andere website haar zonder iframe-isolatie inlaadde. In dat geval kan de code
+onder de normale website-origin draaien. De patch weigert dat expliciet en
+controleert ook de herkomst van uitvoeropdrachten.
+
+INSTALLEREN
+1. Pak de ZIP uit.
+2. Kopieer de inhoud van bee-learning-platform/ over de bestaande PROJECTMAP.
+   Verwijder de projectmap niet; laat je huidige config.js intact.
+3. In de VS Code-terminal, vanuit de bestaande projectmap:
+
+   npm run check
+   npm test
+   npm run build
+   git add .
+   git commit -m "Secure JavaScript sandbox v2.4.1"
+   git push origin main
+
+4. Controleer of BEIDE GitHub Actions-workflows groen zijn.
+
+GEEN WIJZIGINGEN AAN SUPABASE NODIG.
+Geen nieuwe accounts, geen nepaccounts, geen nieuwe SQL-query's.
+
+BELANGRIJK
+- Deze patch is code + tests; geen live Supabase-beveiligingstest.
+- Bestaande studentenaccounts en opgeslagen voortgang veranderen niet.
+- Een door een student gemaakte eindeloze lus in een DOM-oefening kan de
+  browsertab nog laten vastlopen. Dat is geen afgerond technisch risico.
+- Zie docs/BEVEILIGING_FASE3.md voor openstaande productierisico's.
