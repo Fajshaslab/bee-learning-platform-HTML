@@ -1,0 +1,64 @@
+BEE LEARNING PLATFORM — ÉÉN PROJECTPAKKET
+======================================
+
+Dit is de geconsolideerde, zelfstandige webapplicatie.
+Je hoeft geen eerdere ZIP-bestanden of losse stappen meer te combineren.
+
+DIRECT OPENEN
+1. Pak de ZIP uit.
+2. Open de map "bee-learning-platform" in Visual Studio Code.
+3. Open Terminal > New Terminal (Command Prompt).
+4. Voer uit: npm run dev
+5. Open http://localhost:5173/
+6. Klik "Open demonstratie".
+
+De demo heeft 8 modules, 40 lessen, 8 modulechecks, code-editor,
+HTML/CSS-preview, lokale conceptopslag, import/export en voortgang.
+Demoresultaten zijn NOOIT officiële studentresultaten.
+
+VOOR ECHTE STUDENTEN
+1. Maak een Supabase-project. E-mailbevestiging moet AAN staan.
+2. Voer supabase/schema.sql uit via de SQL Editor (bij voorkeur
+   eerst in een afzonderlijk testproject).
+3. Vul uitsluitend je PUBLIEKE project-URL en anon/publishable-key
+   in config.js in. Geen geheime keys of databasewachtwoorden!
+4. Stel je live website als Supabase Site URL in en sta de
+   bevestigings-/herstelredirects toe.
+5. Maak twee afzonderlijke bevestigde TESTaccounts en voer de
+   live controles uit volgens docs/PILOT_SUPABASE_LIVE_TEST.md.
+6. Publiceer naar GitHub Pages via de meegeleverde workflow.
+
+CONTROLES
+npm test         (automatische tests)
+npm run check    (syntax en configuratie)
+npm run build    (controle + productiebuild in dist/)
+npm run pilot:live  (alleen na instellen van testaccounts)
+
+BELANGRIJKE GRENZEN
+- De volledige 846 acceptatiescenario's zijn NIET uitgevoerd.
+- De 40 lesinhouden zijn uitgewerkte CONCEPTEN, geen bewezen
+  of pedagogisch gevalideerde 35–40 uur studiebelasting.
+- Modulechecks zijn oefentoetsen: antwoordgegevens staan ook in
+  de clientcode en zijn daarom NIET fraudebestendige examens.
+- JavaScript wordt in de preview NIET uitgevoerd om veiligheidsredenen.
+- Zonder echt Supabase-project zijn account- en serverflows nog
+  NIET live geverifieerd. Publicatie op GitHub alleen is niet genoeg.
+- Het project is een statische JavaScript-webapp, te openen in VS Code;
+  het is geen Visual Studio .sln-oplossing.
+
+Zie README.md voor alle stappen en beperkingen.
+
+BELANGRIJK: Iedere les bevat nu expliciete stap-voor-stapuitleg en voorbeelden vóór de oefening. Zie docs/LESSEN_DIDACTISCH_HERZIEN.md. De 60 minuten per les en officiële beoordeling zijn nog niet met beginners gevalideerd.
+
+AUTOMATISCH HET HELE LEERTRAJECT TESTEN
+======================================
+Deze versie bevat Playwright-tests voor de 40 lessen en 8 modulechecks.
+Eenmalig installeren (Python vereist):
+  py -m pip install -r requirements-e2e.txt
+  py -m playwright install chromium
+Tests starten:
+  py -m unittest discover -s tests/e2e -p "test_*.py" -v
+De tests starten automatisch een eigen lokale webserver.
+Volledig rapport: docs/AUTOTEST_VOLLEDIGE_LEERROUTE.md
+Op GitHub: Actions > Test volledige BEE-leerroute.
+Let op: voor echte Supabase-accounts blijven aparte live tests nodig.

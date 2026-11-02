@@ -1,0 +1,38 @@
+name: Test volledige BEE-leerroute
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-tests:
+    name: 40 lessen, 8 modulechecks en browsercontroles
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Controleer broncode en bouw statische site
+        run: |
+          npm test
+          npm run build
+      - name: Installeer Playwright met Chromium
+        run: |
+          python -m pip install -r requirements-e2e.txt
+          python -m playwright install --with-deps chromium
+      - name: Voer echte browser-eind-tot-eindtests uit
+        run: python -m unittest discover -s tests/e2e -p 'test_*.py' -v
+      - name: Bewaar screenshots en log bij mislukken
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bee-e2e-diagnostiek
+          path: test-results/
+          if-no-files-found: ignore
