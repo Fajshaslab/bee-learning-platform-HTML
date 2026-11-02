@@ -140,6 +140,49 @@ function jsCheck(kind, js, id) {
   if (kind === 'addEventListener') return /\.\s*addEventListener\s*\(\s*(['"`])[a-z]+\1\s*,\s*(?:function\b|\([^)]*\)\s*=>|[a-z_$][\w$]*)/i.test(js)
   return false
 }
+// Dezelfde acceptatiecriteria blijven gelden; alleen foutuitleg wordt concreter.
+// We geven geen verborgen modulecheckantwoorden weg: dit betreft uitsluitend code-oefeningen.
+export function explainFailure(lesson) {
+  if (!lesson) return 'Er is geen geldige les geladen.'
+  const special = {
+    'm1-l4': 'Maak in index.html een zichtbare, beschrijvende link naar https://example.com. Controleer of het a-element een href-attribuut heeft.',
+    'm2-l3': 'Maak in index.html een link met een volledige http- of https-bestemming en duidelijke linktekst. Controleer het href-attribuut.',
+    'm2-l4': 'Een afbeelding heeft een src nodig én een alt-tekst die beschrijft wat er te zien is. Controleer beide attributen.',
+    'm3-l2': 'Zet het invoerveld daadwerkelijk binnen een form-element. Een los input-element buiten het formulier telt niet.',
+    'm3-l3': 'Geef je input een id en je label een overeenkomend for-attribuut. Voeg zichtbare labeltekst toe.',
+    'm3-l4': 'Gebruik een table met een koprij (th) en een gegevensrij (td). Controleer of deze binnen de juiste rijen en tabel staan.',
+    'm5-l1': 'Open style.css en controleer of de selector .container de eigenschap display: flex of display: inline-flex heeft.',
+    'm5-l3': 'Open style.css en controleer of de selector .grid een CSS-regel met display: grid of display: inline-grid heeft.',
+    'm5-l4': 'Schrijf in style.css een @media-regel met een breedtevoorwaarde en daarin een niet-lege CSS-regel.',
+  }
+  if (special[lesson.id]) return special[lesson.id]
+  if (lesson.rule.startsWith('css:')) {
+    const [, selector, property] = lesson.rule.split(':')
+    if (!property) return 'Controleer je mediaquery en plaats er een geldige CSS-regel in. Commentaar telt niet.'
+    return `Open style.css en controleer of de selector ${selector} een werkende ${property}-eigenschap met waarde heeft. Commentaar telt niet.`
+  }
+  if (lesson.rule.startsWith('js:')) {
+    const requirement = lesson.rule.slice(3)
+    const hints = {
+      'console.log':'Gebruik in script.js een volledige console.log(...)-aanroep met inhoud.',
+      'const':'Declareer in script.js een const met een naam én een waarde.',
+      'boolean':'Maak in script.js een variabele met de booleanwaarde true of false.',
+      'if':'Schrijf in script.js een if met een voorwaarde én instructies tussen accolades.',
+      'function':'Maak in script.js een functie met een naam of een arrow function, inclusief een niet-lege body.',
+      'array':'Maak in script.js een variabele met een array die ten minste één item bevat.',
+      'object':'Maak in script.js een object met minstens één eigenschap en waarde.',
+      'querySelector':'Gebruik in script.js document.querySelector(...) met een selector tussen aanhalingstekens.',
+      'addEventListener':'Gebruik in script.js addEventListener(...) met een eventnaam en een handlerfunctie.',
+    }
+    return hints[requirement] || 'Controleer de volledige JavaScript-instructie in script.js. Alleen losse trefwoorden of commentaar zijn onvoldoende.'
+  }
+  const tags=lesson.rule.split(',').filter(Boolean)
+  if (tags.length && !lesson.rule.includes(':')) {
+    const names=tags.map(tag=>`<${tag}>`).join(', ')
+    return `Controleer in index.html of de opdracht deze HTML-elementen bevat: ${names}. Voeg zichtbare inhoud toe en sluit elementen correct af.`
+  }
+  return 'Controleer de HTML-structuur, zichtbare inhoud, attributen en eventuele nesting.'
+}
 export function assessLesson(lesson, files) {
   if (!lesson || !files) return {ok:false, message:'Er is geen geldige les of code geladen.'}
   const html = stripHtmlComments(files.html)
@@ -152,8 +195,6 @@ export function assessLesson(lesson, files) {
   else ok = htmlCheck(lesson, html)
   const feedback = ok
     ? 'De vereiste code-onderdelen zijn gevonden. De controle beoordeelt niet of de inhoud inhoudelijk klopt of de JavaScript-code daadwerkelijk werkt.'
-    : lesson.rule.startsWith('css:') ? 'Controleer de juiste CSS-selector, eigenschap en een geldige waarde. Een vermelding in commentaar telt niet.'
-      : lesson.rule.startsWith('js:') ? 'Schrijf een volledige JavaScript-instructie, niet alleen een trefwoord of commentaar.'
-        : 'Controleer de HTML-structuur, zichtbare inhoud, eventuele attributen en de volgorde van geneste elementen.'
+    : explainFailure(lesson)
   return {ok, message:feedback}
 }

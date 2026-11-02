@@ -34,3 +34,12 @@
 .guide-result p,.guide-warning p{margin:0}
 @media(max-width:480px){.guide-code{font-size:12px;padding:14px 12px}.guided-learning h3{font-size:17px}}
 @media(forced-colors:active){.guide-code,.guide-intro,.guide-result,.guide-warning{border:1px solid CanvasText}}
+
+/* Laat beginners direct zien waar ze zijn en hoe ze bij hun opdracht komen. */
+.lesson-intro-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 18px;background:var(--bg-card);border:1px solid var(--border-divider);border-radius:10px;color:var(--text-secondary);font-size:14px;font-weight:600}
+.lesson-intro-bar .button{margin:0}
+#practice-assignment{scroll-margin-top:28px;outline-offset:4px}
+#practice-assignment:focus-visible{outline:2px solid var(--bee-yellow)}
+#feedback:empty{display:none}
+#feedback:not(:empty){margin-top:14px;white-space:pre-wrap}
+@media(max-width:480px){.lesson-intro-bar .button{width:100%}}

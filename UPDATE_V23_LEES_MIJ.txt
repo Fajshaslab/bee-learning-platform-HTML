@@ -1,0 +1,57 @@
+BEE LEARNING PLATFORM — KWALITEITSRONDE v2.3
+========================================
+
+DIT IS EEN KLEINE UPDATE voor jouw bestaande v2.2-project.
+Geen nieuwe website, geen nieuwe Supabase-database, geen nieuwe gebruikers.
+
+WAT IS VERBETERD?
+- CSS- en JavaScript-lessen openen meteen het juiste editor-tabblad.
+- Boven iedere les staan de lespositie en de knop 'Direct naar de opdracht'.
+- Iedere opdracht vermeldt of je in index.html, style.css of script.js moet werken.
+- De verdieping staat NA de oefening, zodat beginners eerst kunnen oefenen.
+- Bij foutieve code krijgt de student gerichtere uitleg per soort opdracht.
+- Oude foutfeedback verdwijnt wanneer de student code aanpast.
+- 'Begin lokaal opnieuw' bewaart de begincode direct en duidelijk op dit apparaat;
+  deze actie verandert niet stilzwijgend het online concept.
+- Automatische tests uitgebreid; de volledige demoleerroute blijft intact.
+
+ZO INSTALLEER JE HET ZONDER JOUW VOORTGANG AAN TE RAKEN:
+1. Maak voor de zekerheid een reservekopie van de huidige projectmap.
+2. Open de ZIP. Daarin staat de map 'bee-learning-platform'.
+3. Kopieer DE INHOUD van die map over de inhoud van jouw BESTAANDE map:
+   C:\Users\fajsh\Desktop\BEE-Learning-Platform-AUTOTEST\bee-learning-platform
+   Kies in Windows 'Bestanden vervangen' waar dit wordt gevraagd.
+   VERWIJDER je bestaande projectmap NIET. Dit is een wijzigingspakket,
+   geen compleet nieuw project.
+4. Open de bestaande map in VS Code. Voer in de terminal uit:
+
+      npm run check
+      npm test
+      npm run build
+      git add .
+      git commit -m "Improve BEE learning experience v2.3"
+      git push origin main
+
+5. Kijk in GitHub > Actions of publicatie en automatische tests groen worden.
+6. Open de bestaande GitHub Pages-website en vernieuw met Ctrl+F5.
+
+BELANGRIJK:
+- config.js is NIET inbegrepen: jouw bestaande Supabase-URL en
+  publishable key blijven staan.
+- supabase/schema.sql en de eerder uitgevoerde migratie worden NIET
+  gewijzigd. Je hoeft GEEN SQL in Supabase uit te voeren.
+- Je account, online lesvoortgang en bestaande online concepten blijven staan.
+- De GitHub Actions-browserrun moet na deze upload nog groen worden; een
+  groen Node-testresultaat alleen bewijst geen live Supabase-beveiliging.
+
+UITGEVOERDE CONTROLES IN DE ONTWIKKELOMGEVING:
+- npm run check: geslaagd.
+- npm test: 146 van 146 geslaagd.
+- npm run build: geslaagd.
+- Chromium met tijdelijke geheugenopslag: volledige demo-route 40 lessen,
+  8 modulechecks geslaagd; extra browsercontrole op foutfeedback, snelle
+  navigatie en lokale reset geslaagd.
+- De afgeschermde Chromium-test gebruikt GEEN echte website/IndexedDB/Supabase.
+  De reguliere Playwright-test via GitHub Actions controleert de website.
+
+Lees ook docs/KWALITEITSRONDE_V23.md voor beperkingen en restpunten.

@@ -180,6 +180,8 @@ class BeeBrowserJourney(unittest.TestCase):
                 if lesson['rule'].startswith('css:'): file_type='css'
                 elif lesson['rule'].startswith('js:'): file_type='js'
                 else: file_type='html'
+                # Een beginner landt direct in het juiste bestand.
+                expect(self.page.locator(f'[data-action="tab"][data-tab="{file_type}"]')).to_have_attribute('aria-pressed', 'true')
                 self.page.locator(f'[data-action="tab"][data-tab="{file_type}"]').click()
                 self.page.locator('#editor').fill(code[file_type])
                 self.page.locator('[data-action="check-code"]').click()
@@ -207,6 +209,28 @@ class BeeBrowserJourney(unittest.TestCase):
         expect(self.page.locator('[role="progressbar"]')).to_have_attribute('aria-valuenow','100')
         self.open_hash('complete')
         expect(self.page.get_by_role('heading', name='Alle acht modules afgerond')).to_be_visible()
+        self.assertFalse(self.errors, self.errors)
+
+    def test_06_beginners_navigatie_feedback_en_reset_blijft_opgeslagen(self):
+        self.start_demo()
+        self.open_hash('lesson/m1-l1')
+        expect(self.page.locator('.lesson-intro-bar')).to_contain_text('Les 1 van 40')
+        expect(self.page.locator('#practice-assignment')).to_contain_text('index.html')
+        self.page.locator('[data-action="go-practice"]').click()
+        expect(self.page.locator('#practice-assignment')).to_be_focused()
+        self.page.locator('#editor').fill('<h1>Hallo</h1>')
+        self.page.locator('[data-action="check-code"]').click()
+        expect(self.page.locator('#feedback')).to_contain_text('<p>')
+        expect(self.page.locator('#feedback')).to_have_class(re.compile('error'))
+        self.page.locator('#editor').fill('<h1>Gewijzigde kop</h1><p>Gewijzigde tekst</p>')
+        self.page.on('dialog', lambda dialog: dialog.accept())
+        self.page.locator('[data-action="reset-draft"]').click()
+        expect(self.page.locator('#editor')).to_have_value('<h1>Mijn eerste website</h1>')
+        expect(self.page.locator('#global-message')).to_contain_text('Begincode lokaal opgeslagen')
+        self.open_hash('modules')
+        expect(self.page.locator('h1')).to_have_text('Moduleoverzicht')
+        self.open_hash('lesson/m1-l1')
+        expect(self.page.locator('#editor')).to_have_value('<h1>Mijn eerste website</h1>')
         self.assertFalse(self.errors, self.errors)
 
     def test_05_mobile_has_no_document_overflow(self):

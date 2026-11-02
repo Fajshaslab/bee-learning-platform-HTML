@@ -2,7 +2,7 @@ import { assessLesson } from './assessment.js'
 import { CONFIG } from '../config.js'
 import { modules, allLessons, findModule, findLesson } from '../data/curriculum.js'
 import { escapeHtml as e, getNext, getAccess, moduleState, localSourceCheck, makePreview, emptyProgress } from './learning.js'
-import { getDraft, putDraft, getDemoProgress, putDemoProgress, removeDraft } from './storage.js'
+import { getDraft, putDraft, getDemoProgress, putDemoProgress } from './storage.js'
 import * as auth from './auth.js'
 
 const app = document.getElementById('app')
@@ -82,15 +82,18 @@ function lessonPage(id){
  if(!lesson)return layout(head('Les niet gevonden'))
  if(!access.has(id))return layout(head('Les vergrendeld')+`<div class="card"><p>Rond de eerdere lessen en verplichte modulecheck eerst af.</p>${link('/modules','Terug naar modules','button secondary')}</div>`)
  const module=modules.find(m=>m.lessons.some(l=>l.id===id))
+ const lessonNumber=allLessons.findIndex(l=>l.id===id)+1
+ const currentFile=lesson.rule.startsWith('css:')?'style.css':lesson.rule.startsWith('js:')?'script.js':'index.html'
  if(state.lesson!==id||!state.files)return layout(head('Les laden…')+`<div class="card">Lokaal concept wordt opgehaald.</div>`)
  const code=state.files,completed=state.progress.lessons.includes(id)
- return layout(head(lesson.title,`${module.title} · ${lesson.durationMinutes} minuten gepland · ${completed?'Les geregistreerd':'Nog niet afgerond'}`)+`<div class="lesson-stack"><section class="card"><div class="eyebrow">THEORIE EN UITLEG</div><h2>Wat ga je leren?</h2><p>${e(lesson.introduction)}</p>${lesson.theory.map(t=>`<div class="theory-block"><h3>${e(t.heading)}</h3><p>${e(t.text)}</p></div>`).join('')}</section>
+ return layout(head(lesson.title,`${module.title} · ${lesson.durationMinutes} minuten gepland · ${completed?'Les geregistreerd':'Nog niet afgerond'}`)+`<div class="lesson-stack"><div class="lesson-intro-bar"><span>Les ${lessonNumber} van ${allLessons.length} · Module ${module.number} van ${modules.length}</span><button class="button secondary" type="button" data-action="go-practice">Direct naar de opdracht ↓</button></div><section class="card"><div class="eyebrow">THEORIE EN UITLEG</div><h2>Wat ga je leren?</h2><p>${e(lesson.introduction)}</p>${lesson.theory.map(t=>`<div class="theory-block"><h3>${e(t.heading)}</h3><p>${e(t.text)}</p></div>`).join('')}</section>
  ${renderLessonGuide(lesson)}
- <section class="card"><div class="eyebrow">VERDIEPING EN ZELFCONTROLE</div><h2>Na de eerste oplossing</h2><p>${e(lesson.extension||'Vergelijk je oplossing met de opdracht en verbeter de leesbaarheid.')}</p><p><strong>Reflectievraag:</strong> ${e(lesson.reflection||'Wat heb je geleerd?')}</p></section><section class="card assignment"><div class="eyebrow">PRAKTIJKOPDRACHT</div><h2>Zelf proberen</h2><p>${e(lesson.task)}</p><div class="notice info">${lesson.advanced?'JavaScript wordt hier alleen bewerkt, niet uitgevoerd.':'De HTML/CSS-preview werkt direct tijdens het typen.'} Officiële afronding vereist verbinding en servercontrole.</div></section>
- <div class="workspace"><section class="card editor-box"><div class="section-head"><div><div class="eyebrow">EDITOR</div><h2>Jouw code</h2></div><span class="save-indicator" id="save-indicator" role="status">${e(state.status)}</span></div><div class="tabs" role="group" aria-label="Bestand kiezen">${[['html','index.html'],['css','style.css'],['js','script.js']].map(([key,label])=>`<button data-action="tab" data-tab="${key}" class="tab ${state.tab===key?'active':''}" aria-pressed="${state.tab===key}">${label}</button>`).join('')}</div><label class="visually-hidden" for="editor">Code-editor voor ${e(state.tab)}</label><textarea id="editor" spellcheck="false" aria-label="${e(state.tab.toUpperCase())} codebewerking" autocapitalize="off" autocomplete="off" autocorrect="off">${e(code[state.tab])}</textarea><p class="muted small">Bewerken met regelnummers en syntaxkleuren zit niet in deze zelfstandige versie. Tab verlaat de editor normaal.</p></section>
+ <section id="practice-assignment" class="card assignment" tabindex="-1"><div class="eyebrow">PRAKTIJKOPDRACHT</div><h2>Zelf proberen</h2><p>${e(lesson.task)}</p><p><strong>Werk voor deze opdracht in:</strong> <code>${currentFile}</code>. Je kunt hieronder van bestand wisselen.</p><div class="notice info">${lesson.advanced?'JavaScript wordt hier alleen bewerkt, niet uitgevoerd.':'De HTML/CSS-preview werkt direct tijdens het typen.'} Officiële afronding vereist verbinding en servercontrole.</div></section>
+ <div class="workspace"><section class="card editor-box"><div class="section-head"><div><div class="eyebrow">EDITOR</div><h2>Jouw code</h2><p class="muted small">Benodigd bestand: <strong>${currentFile}</strong></p></div><span class="save-indicator" id="save-indicator" role="status">${e(state.status)}</span></div><div class="tabs" role="group" aria-label="Bestand kiezen">${[['html','index.html'],['css','style.css'],['js','script.js']].map(([key,label])=>`<button data-action="tab" data-tab="${key}" class="tab ${state.tab===key?'active':''}" aria-pressed="${state.tab===key}">${label}</button>`).join('')}</div><label class="visually-hidden" for="editor">Code-editor voor ${e(state.tab)}</label><textarea id="editor" spellcheck="false" aria-label="${e(state.tab.toUpperCase())} codebewerking" autocapitalize="off" autocomplete="off" autocorrect="off">${e(code[state.tab])}</textarea><p class="muted small">Bewerken met regelnummers en syntaxkleuren zit niet in deze zelfstandige versie. Tab verlaat de editor normaal.</p></section>
  <section class="card result-box"><div class="eyebrow">LIVE PREVIEW</div><h2>Jouw resultaat</h2><iframe id="preview-frame" title="Afgeschermde voorbeeldpagina" sandbox="" referrerpolicy="no-referrer" srcdoc="${e(makePreview(code.html,code.css))}"></iframe><p class="muted small">Het iframe voert geen JavaScript uit en heeft geen toegang tot het hoofdplatform.</p></section></div>
- <section class="card"><div class="eyebrow">HINTS EN FEEDBACK</div><h2>Controleer jezelf</h2><div class="actions"><button class="button secondary" data-action="hint">Toon hint (${state.hint}/${lesson.hints.length})</button><button class="button primary" data-action="check-code">Controleer mijn code</button>${!completed?`<button class="button secondary" data-action="complete-lesson">${state.mode==='demo'?'Demo-les markeren':'Les officieel registreren'}</button>`:'<span class="status completed">Les afgerond</span>'}</div>${state.hint?`<ol class="hints">${lesson.hints.slice(0,state.hint).map(h=>`<li>${e(h)}</li>`).join('')}</ol>`:''}<div id="feedback" role="status">${e(state.feedback)}</div></section>
- <section class="card"><div class="eyebrow">CONCEPTBEHEER</div><h2>Conceptopslag</h2><p id="storage-detail" class="muted">${state.mode==='demo'?'Alleen deze browser, demonstratiemodus.':'Lokaal concept met optionele account-synchronisatie.'}</p><div class="actions"><button class="button secondary" data-action="save-draft">Lokaal opslaan</button>${state.mode==='account'?'<button class="button secondary" data-action="sync">Synchroniseer concept</button>':''}<button class="button secondary" data-action="export">Export JSON</button><label class="button secondary file-label">Import JSON<input id="import-file" type="file" accept=".json,application/json" hidden></label><button class="button ghost" data-action="reset-draft">Begin opnieuw</button></div>${state.conflict?'<div class="notice warn"><strong>Opslagconflict</strong><p>Het serverconcept is op een ander apparaat veranderd. We overschrijven niets automatisch.</p><button class="button secondary" data-action="use-server">Laad serverversie</button><button class="button secondary" data-action="keep-local">Bewaar mijn lokale versie apart als JSON</button></div>':''}</section>
+ <section class="card"><div class="eyebrow">HINTS EN FEEDBACK</div><h2>Controleer jezelf</h2><div class="actions"><button class="button secondary" data-action="hint">Toon hint (${state.hint}/${lesson.hints.length})</button><button class="button primary" data-action="check-code">Controleer mijn code</button>${!completed?`<button class="button secondary" data-action="complete-lesson">${state.mode==='demo'?'Demo-les markeren':'Les officieel registreren'}</button>`:'<span class="status completed">Les afgerond</span>'}</div>${state.hint?`<ol class="hints">${lesson.hints.slice(0,state.hint).map(h=>`<li>${e(h)}</li>`).join('')}</ol>`:''}<div id="feedback" role="status" aria-live="polite" class="${state.feedback?'notice info':''}">${e(state.feedback)}</div></section>
+ <section class="card"><div class="eyebrow">VERDIEPING EN ZELFCONTROLE</div><h2>Na de eerste oplossing</h2><p>${e(lesson.extension||'Vergelijk je oplossing met de opdracht en verbeter de leesbaarheid.')}</p><p><strong>Reflectievraag:</strong> ${e(lesson.reflection||'Wat heb je geleerd?')}</p></section>
+ <section class="card"><div class="eyebrow">CONCEPTBEHEER</div><h2>Conceptopslag</h2><p id="storage-detail" class="muted">${state.mode==='demo'?'Alleen deze browser, demonstratiemodus.':'Lokaal concept met optionele account-synchronisatie.'}</p><div class="actions"><button class="button secondary" data-action="save-draft">Lokaal opslaan</button>${state.mode==='account'?'<button class="button secondary" data-action="sync">Synchroniseer concept</button>':''}<button class="button secondary" data-action="export">Export JSON</button><label class="button secondary file-label">Import JSON<input id="import-file" type="file" accept=".json,application/json" hidden></label><button class="button ghost" data-action="reset-draft">Begin lokaal opnieuw</button></div>${state.conflict?'<div class="notice warn"><strong>Opslagconflict</strong><p>Het serverconcept is op een ander apparaat veranderd. We overschrijven niets automatisch.</p><button class="button secondary" data-action="use-server">Laad serverversie</button><button class="button secondary" data-action="keep-local">Bewaar mijn lokale versie apart als JSON</button></div>':''}</section>
  <div class="lesson-footer">${link('/modules','Terug naar modules','button secondary')}${completed&&getNext(state.progress).type==='lesson'&&getNext(state.progress).lesson.id!==id?link('/lesson/'+getNext(state.progress).lesson.id,'Volgende les','button primary'):completed&&getNext(state.progress).type==='check'?link('/check/'+getNext(state.progress).module.id,'Naar de modulecheck','button primary'):''}</div></div>`,'Verder leren')
 }
 function moduleCheckPage(id){
@@ -107,7 +110,7 @@ function sessionExpiredPage(){return `<main class="login-page"><section class="l
 
 async function loadLesson(id){
  const l=findLesson(id);if(!l)return
- state.lesson=id;state.files=null;state.feedback='';state.hint=0;state.tab='html';state.conflict=null;state.status='Laden…';render()
+ state.lesson=id;state.files=null;state.feedback='';state.hint=0;state.tab=l.rule.startsWith('css:')?'css':l.rule.startsWith('js:')?'js':'html';state.conflict=null;state.status='Laden…';render()
  try{
   const cached=await getDraft(scope(),id)
   let remote=null
@@ -217,7 +220,7 @@ async function completeLesson(){
  if(!state.lesson||!state.files)return
  const lesson=findLesson(state.lesson)
  const beoordeling=assessLesson(lesson,state.files)
- if(!beoordeling.ok){setMessage(beoordeling.message,true);return}
+ if(!beoordeling.ok){state.feedback=beoordeling.message;const f=document.querySelector('#feedback');if(f){f.textContent=beoordeling.message;f.className='notice error'}setMessage('Je code is nog niet compleet. Bekijk de feedback bij de oefening.',true);return}
  if(state.mode==='demo'){
   if(!state.progress.lessons.includes(lesson.id))state.progress.lessons.push(lesson.id)
   putDemoProgress(state.progress);render();setMessage('Demo-les gemarkeerd (niet officieel).');return
@@ -266,6 +269,10 @@ app.addEventListener('input',ev=>{
  if(ev.target.id!=='editor'||!state.files)return
  state.files[state.tab]=ev.target.value
  state.editRevision+=1
+ // Feedback hoort bij de vorige codeversie; laat geen verouderde foutmelding staan.
+ state.feedback=''
+ const feedbackBox=document.querySelector('#feedback')
+ if(feedbackBox){feedbackBox.textContent='';feedbackBox.className=''}
  state.status='Wijzigingen wachten op lokale opslag…'
  const ind=document.querySelector('#save-indicator');if(ind)ind.textContent=state.status
  if(state.tab!=='js'){const iframe=document.querySelector('#preview-frame');if(iframe)iframe.srcdoc=makePreview(state.files.html,state.files.css)}
@@ -320,9 +327,10 @@ app.addEventListener('click',async ev=>{
   if(state.mode==='account')await auth.logout()
   state.expiredDraft=null;state.mode='guest';state.lesson=null;state.files=null;location.hash='#/login';render();return
  }
- if(action==='tab'){state.tab=button.dataset.tab;render();return}
+ if(action==='go-practice'){const target=document.getElementById('practice-assignment');target?.scrollIntoView({behavior:'auto',block:'start'});target?.focus({preventScroll:true});return}
+ if(action==='tab'){state.tab=button.dataset.tab;render();document.getElementById('editor')?.focus({preventScroll:true});return}
  if(action==='hint'){const l=findLesson(state.lesson);state.hint=Math.min(state.hint+1,l.hints.length);render();return}
- if(action==='check-code'){state.feedback=assessLesson(findLesson(state.lesson),state.files).message;const f=document.querySelector('#feedback');if(f)f.textContent=state.feedback;return}
+ if(action==='check-code'){const result=assessLesson(findLesson(state.lesson),state.files);state.feedback=result.message;const f=document.querySelector('#feedback');if(f){f.textContent=state.feedback;f.className='notice '+(result.ok?'success':'error')}return}
  if(action==='complete-lesson'){
   if(!await saveLocal()){
    setMessage('Les niet geregistreerd: lokaal opslaan is mislukt. Exporteer je code eerst.',true)
@@ -339,15 +347,17 @@ app.addEventListener('click',async ev=>{
   const a=document.createElement('a');a.href=url;a.download=`bee-${state.lesson}-${Date.now()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);setMessage('Download gestart. Controleer je Downloads-map.');return
  }
  if(action==='reset-draft'){
-  if(!confirm('Dit lokale concept verwijderen en opnieuw beginnen?'))return
+  if(!confirm('Je huidige code op dit apparaat vervangen door de begincode? Je online concept blijft staan tot je bewust synchroniseert. Exporteer eerst als je een back-up wilt.'))return
   clearTimeout(state.timer)
   try{
    await draftSaveQueue.catch(()=>undefined)
-   await removeDraft(scope(),state.lesson)
    state.files=structuredClone(findLesson(state.lesson).initial)
-   state.editRevision+=1;state.version=0;state.conflict=null
-   render();setMessage('Lokaal concept verwijderd.')
-  }catch(err){setMessage('Concept kon niet worden verwijderd: '+err.message,true)}
+   state.editRevision+=1;state.feedback=''
+   // Keep the known server version: resetting a local editor is not a new remote revision.
+   // Persist the starter code immediately, otherwise a reload restores the old draft.
+   if(!await saveLocal())return
+   render();setMessage('Begincode lokaal opgeslagen. Je online concept is niet aangepast.')
+  }catch(err){setMessage('Begincode kon niet worden opgeslagen: '+err.message,true)}
   return
  }
  if(action==='use-server'){
