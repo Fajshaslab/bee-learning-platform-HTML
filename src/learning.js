@@ -1,3 +1,4 @@
+import { assessLesson } from './assessment.js'
 import { modules, allLessons } from '../data/curriculum.js'
 
 export const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
@@ -30,55 +31,8 @@ export function moduleState(module, progress) {
   const previous = modules[module.number-2]
   return !previous || checks.has(previous.id) ? 'available' : 'locked'
 }
-// Oefencontrole voor een beschrijvende link: vereist bestemming én linktekst.
-// Dit blijft een technische herkenningscontrole; geen pedagogische eindbeoordeling.
-function hasDescriptiveLink(markup, requiredHost = null) {
-  for (const match of String(markup).matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a\s*>/gi)) {
-    const attributes = match[1]
-    const hrefMatch = /\bhref\s*=\s*(["'])(.*?)\1/i.exec(attributes)
-    if (!hrefMatch) continue
-    let target
-    try { target = new URL(hrefMatch[2]) } catch { continue }
-    if (target.protocol !== 'https:' && target.protocol !== 'http:') continue
-    if (requiredHost && target.hostname !== requiredHost) continue
-    const text = match[2].replace(/<[^>]+>/g, '').trim()
-    if (text.length < 8 || /^(klik hier|hier|meer|link)$/i.test(text)) continue
-    return true
-  }
-  return false
-}
-function hasAccessibleImage(markup) {
-  return [...String(markup).matchAll(/<img\b([^>]*?)\/?>/gi)].some(([, attrs]) => {
-    const src = /\bsrc\s*=\s*(["'])(.*?)\1/i.exec(attrs)
-    const alt = /\balt\s*=\s*(["'])(.*?)\1/i.exec(attrs)
-    return src && src[2].trim() && alt && alt[2].trim()
-  })
-}
 export function localSourceCheck(lesson, code) {
-  // De HTML-linkopdrachten eisen meer dan alleen de aanwezigheid van <a>.
-  if (lesson.id === 'm1-l4') {
-    return /<h1\b[^>]*>[\s\S]*?<\/h1\s*>/i.test(code.html)
-      && hasDescriptiveLink(code.html, 'example.com')
-  }
-  if (lesson.id === 'm2-l3') return hasDescriptiveLink(code.html)
-  if (lesson.id === 'm2-l4') return hasAccessibleImage(code.html)
-
-  const source = lesson.rule.startsWith('css:') ? code.css : lesson.rule.startsWith('js:') ? code.js : code.html
-  if (lesson.rule.startsWith('css:')) {
-    const fields = lesson.rule.split(':')
-    if (fields.length === 2) return source.includes(fields[1])
-    const rule = fields[1].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')
-    const property = fields[2].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')
-    const block = new RegExp(`${rule}\\s*\\{([^}]*)\\}`, 'i').exec(source)
-    return Boolean(block && new RegExp(`(?:^|;)\\s*${property}\\s*:\\s*[^;}]`, 'i').test(block[1]))
-  }
-  if (lesson.rule.startsWith('js:')) {
-    const kind = lesson.rule.slice(3)
-    const js = source.replace(/\/\/[^\n]*/g,'')
-    const tests = { 'console.log':/console\s*\.\s*log\s*\(/,'const':/\bconst\s+\w+\s*=/,'boolean':/\b(true|false)\b/,'if':/\bif\s*\(/,'function':/\bfunction\s+\w+\s*\(|=>/,'array':/\[[^\]]*\]/,'object':/\b(?:const|let)\s+\w+\s*=\s*\{/,'querySelector':/document\s*\.\s*querySelector\s*\(/,'addEventListener':/\.\s*addEventListener\s*\(/}
-    return Boolean(tests[kind]?.test(js))
-  }
-  return lesson.rule.split(',').every(tag=>new RegExp(`<${tag}\\b[^>]*>`, 'i').test(source))
+  return assessLesson(lesson, code).ok
 }
 export function makePreview(html,css) {
   // No script permissions: iframe sandbox="" and restrictive CSP are BOTH required.

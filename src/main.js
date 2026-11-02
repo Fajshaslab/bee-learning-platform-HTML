@@ -1,3 +1,4 @@
+import { assessLesson } from './assessment.js'
 import { CONFIG } from '../config.js'
 import { modules, allLessons, findModule, findLesson } from '../data/curriculum.js'
 import { escapeHtml as e, getNext, getAccess, moduleState, localSourceCheck, makePreview, emptyProgress } from './learning.js'
@@ -215,7 +216,8 @@ async function enterMode(mode,keepRoute=false){
 async function completeLesson(){
  if(!state.lesson||!state.files)return
  const lesson=findLesson(state.lesson)
- if(!localSourceCheck(lesson,state.files)){setMessage('De gevraagde onderdelen zijn nog niet herkend. Dit is slechts een technische controle.',true);return}
+ const beoordeling=assessLesson(lesson,state.files)
+ if(!beoordeling.ok){setMessage(beoordeling.message,true);return}
  if(state.mode==='demo'){
   if(!state.progress.lessons.includes(lesson.id))state.progress.lessons.push(lesson.id)
   putDemoProgress(state.progress);render();setMessage('Demo-les gemarkeerd (niet officieel).');return
@@ -320,7 +322,7 @@ app.addEventListener('click',async ev=>{
  }
  if(action==='tab'){state.tab=button.dataset.tab;render();return}
  if(action==='hint'){const l=findLesson(state.lesson);state.hint=Math.min(state.hint+1,l.hints.length);render();return}
- if(action==='check-code'){state.feedback=localSourceCheck(findLesson(state.lesson),state.files)?'De gevraagde onderdelen zijn herkend. Dit is slechts een indicatieve broncodecontrole.':'Nog niet alle gevraagde onderdelen zijn herkend. Bekijk je code en eventueel een hint.';const f=document.querySelector('#feedback');if(f)f.textContent=state.feedback;return}
+ if(action==='check-code'){state.feedback=assessLesson(findLesson(state.lesson),state.files).message;const f=document.querySelector('#feedback');if(f)f.textContent=state.feedback;return}
  if(action==='complete-lesson'){
   if(!await saveLocal()){
    setMessage('Les niet geregistreerd: lokaal opslaan is mislukt. Exporteer je code eerst.',true)

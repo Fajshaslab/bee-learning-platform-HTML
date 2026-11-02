@@ -1,0 +1,58 @@
+BEE Learning Platform v2.2 — VEILIG PATCHPAKKET (beoordeling)
+==========================================================
+
+Dit is GEEN volledig nieuw project, maar een gerichte update van de bestaande
+GitHub-versie. In deze ZIP staan alleen bestanden die moeten veranderen.
+Je eigen config.js staat NIET in de ZIP en wordt dus niet overschreven.
+Je Supabase-account, concepten en afgeronde lessen worden niet verwijderd.
+
+STAP 1 — EERST DE WEBSITE UPDATEN
+1. Maak voor de zekerheid een reservekopie van jouw lokale bee-learning-platform-map.
+2. Open deze ZIP. Kopieer de inhoud van de map 'bee-learning-platform' naar jouw
+   BESTAANDE bee-learning-platform-projectmap in VS Code.
+   Kies bestanden vervangen/samenvoegen waar Windows dat vraagt.
+   NIET de hele bestaande projectmap verwijderen!
+3. Voer in de bestaande projectmap uit:
+       npm run check
+       npm test
+       npm run build
+   Verwacht: 142/142 tests geslaagd (Node-tests; geen live Supabase-tests).
+4. Upload de wijziging:
+       git add .
+       git commit -m "Strengthen BEE exercise assessment"
+       git push origin main
+   Controleer op GitHub Actions dat tests en deployment groen zijn.
+   Controleer bij 'git status' dat geen geheime bestanden zijn toegevoegd.
+
+STAP 2 — BESTAANDE SUPABASE-DATABASE UPDATEN (ESSENTIEEL)
+1. Open Supabase Dashboard > jouw BEE-project > SQL Editor > New query.
+2. Open lokaal het bestand:
+       supabase/migrations/20261102_strengere_beoordeling.sql
+3. Selecteer ALLE inhoud (Ctrl+A), kopieer en plak in SQL Editor.
+4. Klik op Run.
+5. Het script voert 40 positieve en 8 negatieve testgevallen uit binnen een
+   database-transactie. Bij een fout blijft de oude functie bestaan; stuur dan
+   de SQL-foutmelding en voer niet opnieuw het volledige schema.sql uit.
+6. Controleer daarna met jouw bestaande account één NIEUWE lesafronding.
+   Bestaande afrondingen blijven staan.
+
+WAAROM MOET STAP 2 APART?
+De app controleert code lokaal, maar officiële voortgang wordt via de
+Supabase-functie submit_lesson geregistreerd. Als je alleen GitHub bijwerkt,
+blijft de server oude, zwakkere controles gebruiken.
+
+WAT KUNNEN DE CONTROLES WEL EN NIET?
+Wel: benodigde HTML-structuur/tekst/attributen, CSS-selector/eigenschap/waarde,
+JavaScript-opbouw, en enkele les-specifieke onderdelen herkennen.
+Niet: echte JavaScript-uitvoering, vormgevingskwaliteit, alle syntaxisfouten,
+inhoudelijk begrip, of ieder denkbaar geldig code-alternatief beoordelen.
+Dit is een technische minimumcontrole, geen volwaardige automatische docent.
+
+NIET NODIG:
+- Geen nieuwe ZIP van de hele app.
+- Geen nieuwe gebruikersaccounts.
+- Geen nieuwe database of opnieuw draaien van schema.sql.
+- Geen studentenpilot.
+
+Bij een fout in de migratie: NIET doorgaan met een half werkende uitrol;
+stuur de foutmelding. De transactie hoort dan teruggedraaid te zijn.

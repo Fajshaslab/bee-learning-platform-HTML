@@ -4,31 +4,11 @@ import { modules, allLessons } from '../data/curriculum.js'
 import { emptyProgress, getAccess, getNext, localSourceCheck, moduleState, makePreview } from '../src/learning.js'
 
 function exampleSolution(lesson) {
-  if (lesson.id === 'm1-l4') return {html:'<h1>Mijn link</h1><a href="https://example.com">Bekijk de voorbeeldwebsite</a>', css:'', js:''}
-  if (lesson.id === 'm2-l3') return {html:'<a href="https://example.com">Lees informatie op de voorbeeldwebsite</a>', css:'', js:''}
-  if (lesson.id === 'm2-l4') return {html:'<img src="voorbeeld.jpg" alt="Een groene heuvel bij zonsopkomst">', css:'', js:''}
-  if (lesson.rule.startsWith('css:')) {
-    const [,selector,property] = lesson.rule.split(':')
-    const css = property ? `${selector} { ${property}: ${property === 'display' ? 'flex':'red'}; }` : `${selector} screen and (max-width: 400px) { body { color: blue; } }`
-    return {html:'<h1>Voorbeeld</h1><div class="container grid"><p>Voorbeeld</p></div>',css,js:''}
-  }
-  if (lesson.rule.startsWith('js:')) {
-    const kind=lesson.rule.slice(3)
-    const snippets={
-      'console.log':'console.log("Hallo BEE");',
-      'const':'const antwoord = 42;',
-      'boolean':'const actief = true;',
-      'if':'if (true) { console.log("BEE"); }',
-      'function':'function oefening() { return 42; }',
-      'array':'const lijst = [1, 2, 3];',
-      'object':'const student = { naam: "BEE" };',
-      'querySelector':'document.querySelector("h1");',
-      'addEventListener':'document.body.addEventListener("click", () => {});',
-    }
-    if (!snippets[kind]) throw new Error(`Ontbrekende JS-oplossing: ${lesson.id} (${kind})`)
-    return {html:'<h1>JavaScript</h1>',css:'',js:snippets[kind]}
-  }
-  return {html:lesson.rule.split(',').map(tag => tag==='input'?'<input type="text">':tag==='img'?'<img src="voorbeeld.jpg" alt="Een voorbeeld">':`<${tag}>BEE</${tag}>`).join('\n'),css:'',js:''}
+  const example=lesson.guide.example
+  const html={html:example,css:'',js:''}
+  if (lesson.rule.startsWith('css:')) return {html:lesson.initial.html,css:example,js:''}
+  if (lesson.rule.startsWith('js:')) return {html:lesson.initial.html,css:'',js:example}
+  return html
 }
 
 test('de leerroute bevat precies 8 opeenvolgende modules en 40 lessen', () => {

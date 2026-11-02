@@ -258,7 +258,7 @@ export const lessonGuides = {
       "head bevat informatie zoals title en meta; de zichtbare inhoud hoort binnen body.",
       "Onze ingebouwde editor plaatst jouw HTML automatisch in een veilige body. Je hoeft hier dus niet zelf een volledige html/head/body-schil te typen."
     ],
-    "example": "<!doctype html>\n<html lang=\"nl\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Mijn pagina</title>\n</head>\n<body>\n  <h1>Welkom</h1>\n  <p>Een alinea</p>\n</body>\n</html>",
+    "example": "<!doctype html>\n<html lang=\"nl\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Mijn pagina</title>\n</head>\n<body>\n  <h1>Welkom</h1>\n  <p>Een alinea</p>\n  <ul><li>HTML oefenen</li></ul>\n</body>\n</html>",
     "language": "html",
     "explanation": [
       "De doctype vertelt de browser dat moderne HTML wordt gebruikt; html is het buitenste element.",

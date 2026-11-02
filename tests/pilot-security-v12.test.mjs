@@ -24,7 +24,7 @@ test('SQL security definer functies beperken execute tot authenticated',()=>{
     assert.match(sql,new RegExp(`revoke all on function public\\.${fn}\\(`))
     assert.match(sql,new RegExp(`grant execute on function public\\.${fn}\\(`))
   }
-  assert.equal((sql.match(/security definer set search_path = ''/g)||[]).length,4)
+  assert.ok((sql.match(/security definer set search_path = ''/g)||[]).length>=4) // append-only migration replaces submit_lesson
 })
 test('SQL rejects NULL verwachte revisie en gebruikt NULL-veilige conflictvergelijking',()=>{
   assert.match(sql,/if p_expected_version is null or p_expected_version < 0 then/)

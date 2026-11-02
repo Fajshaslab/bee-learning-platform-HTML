@@ -1,12 +1,12 @@
 {
   "name": "bee-learning-platform",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check src/main.js && node --check src/auth.js && node --check src/storage.js && node --check src/learning.js && node --check data/curriculum.js && node --check data/lesson-guides.js && node --check service-worker.js && node --check scripts/validate-config.mjs && node scripts/validate-config.mjs",
+    "check": "node --check src/main.js && node --check src/auth.js && node --check src/storage.js && node --check src/learning.js && node --check src/assessment.js && node --check data/curriculum.js && node --check data/lesson-guides.js && node --check service-worker.js && node --check scripts/validate-config.mjs && node scripts/validate-config.mjs",
     "build": "npm run check && node scripts/build.mjs",
     "pilot:live": "node scripts/pilot-live-check.mjs"
   },

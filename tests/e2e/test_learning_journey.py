@@ -25,61 +25,22 @@ ROOT = Path(__file__).resolve().parents[2]
 RESULTS = ROOT / 'test-results'
 
 
-
 def curriculum():
     script = "import {modules} from './data/curriculum.js';console.log(JSON.stringify(modules))"
-
     proc = subprocess.run(
         ['node', '--input-type=module', '-e', script],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        encoding='utf-8',
-        check=True,
+        cwd=ROOT, capture_output=True, text=True, encoding='utf-8', check=True,
     )
-
     return json.loads(proc.stdout)
 
 
-
 def solution_for(lesson):
-    lid = lesson['id']
-    rule = lesson['rule']
-    files = {'html': '', 'css': '', 'js': ''}
-    if lid == 'm1-l4':
-        files['html'] = '<h1>Link oefenen</h1><a href="https://example.com">Bekijk de voorbeeldwebsite</a>'
-    elif lid == 'm2-l3':
-        files['html'] = '<a href="https://example.com">Lees informatie op deze voorbeeldwebsite</a>'
-    elif lid == 'm2-l4':
-        files['html'] = '<img src="voorbeeld.jpg" alt="Een groene heuvel bij zonsopkomst">'
-    elif rule.startswith('css:'):
-        fields = rule.split(':')
-        files['html'] = '<h1>Voorbeeld</h1><p>Voorbeeld</p><div class="container grid">Inhoud</div>'
-        if len(fields) == 2:
-            files['css'] = '@media screen and (max-width: 400px) { body { color: blue; } }'
-        else:
-            selector, prop = fields[1:]
-            value = 'flex' if prop == 'display' else 'red'
-            files['css'] = f'{selector} {{ {prop}: {value}; }}'
-    elif rule.startswith('js:'):
-        kind = rule[3:]
-        files['js'] = {
-            'console.log': 'console.log("Hallo BEE");',
-            'const': 'const antwoord = 42;',
-            'boolean': 'const actief = true;',
-            'if': 'if (true) { console.log("BEE"); }',
-            'function': 'function voorbeeld() { return 42; }',
-            'array': 'const lijst = [1, 2, 3];',
-            'object': 'const student = { naam: "BEE" };',
-            'querySelector': 'document.querySelector("h1");',
-            'addEventListener': 'document.body.addEventListener("click", () => {});',
-        }[kind]
-    else:
-        parts = []
-        for tag in rule.split(','):
-            parts.append(f'<{tag}>BEE</{tag}>')
-        files['html'] = '\n'.join(parts)
-    return files
+    example = lesson['guide']['example']
+    if lesson['rule'].startswith('css:'):
+        return {'html': lesson['initial']['html'], 'css': example, 'js': ''}
+    if lesson['rule'].startswith('js:'):
+        return {'html': lesson['initial']['html'], 'css': '', 'js': example}
+    return {'html': example, 'css': '', 'js': ''}
 
 
 class BeeBrowserJourney(unittest.TestCase):
@@ -172,7 +133,7 @@ class BeeBrowserJourney(unittest.TestCase):
         if not os.getenv('BEE_BROWSER_INLINE'):
             self.assertEqual(self.page.locator('#preview-frame').get_attribute('sandbox'), '')
         self.page.locator('[data-action="check-code"]').click()
-        expect(self.page.locator('#feedback')).to_contain_text('De gevraagde onderdelen zijn herkend.')
+        expect(self.page.locator('#feedback')).to_contain_text('De vereiste code-onderdelen zijn gevonden.')
         self.page.locator('[data-action="save-draft"]').click()
         expect(self.page.locator('#save-indicator')).to_contain_text('lokaal opgeslagen', ignore_case=True)
         if os.getenv('BEE_BROWSER_INLINE'):
@@ -222,7 +183,7 @@ class BeeBrowserJourney(unittest.TestCase):
                 self.page.locator(f'[data-action="tab"][data-tab="{file_type}"]').click()
                 self.page.locator('#editor').fill(code[file_type])
                 self.page.locator('[data-action="check-code"]').click()
-                expect(self.page.locator('#feedback')).to_contain_text('De gevraagde onderdelen zijn herkend.')
+                expect(self.page.locator('#feedback')).to_contain_text('De vereiste code-onderdelen zijn gevonden.')
                 self.page.locator('[data-action="complete-lesson"]').click()
                 expect(self.page.locator('.status.completed')).to_contain_text('Les afgerond')
                 completed_lessons += 1
