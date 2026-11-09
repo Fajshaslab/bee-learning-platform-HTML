@@ -14,8 +14,8 @@ export function stopJavaScript({clear=false}={}) {
   const {frame, output} = current
   current = null
   frame.onload = null
-  // Navigating away drops listeners and the running exercise document.
-  frame.src = './sandbox.html#stopped'
+  // Leave the previous document entirely: changing only the hash is not enough.
+  frame.src = 'about:blank'
   if (clear && output?.isConnected) output.textContent = 'Uitvoering gestopt. Pas je code aan en klik opnieuw op Voer JavaScript uit.'
 }
 function show(output, kind, message) {
@@ -37,14 +37,19 @@ export function runJavaScript(lesson, files, frame, output) {
   const id = `${++count}:${crypto.randomUUID()}`
   const mode = runMode(lesson,files)
   const data = {type:'bee-run',id,mode,html:files.html,css:files.css,js:files.js}
-  const run = {id,frame,output,messages:0,done:false,timer:null,mode}
+  // A genuinely new iframe gives every run a new sandbox document, including offline.
+  // A #fragment change on the old iframe would preserve sandbox.html's active-run state.
+  const freshFrame = frame.cloneNode(false)
+  freshFrame.src = './sandbox.html'
+  const run = {id,frame:freshFrame,output,messages:0,done:false,timer:null,mode}
   current = run
   show(output,'log', mode === 'dom' ? 'Pagina gestart. Klik in de preview om gebeurtenissen te testen.' : 'JavaScript starten…')
-  frame.onload = () => {
+  freshFrame.onload = () => {
     if (current !== run) return
-    frame.contentWindow?.postMessage(data,'*') // sandboxed iframe has opaque origin
+    freshFrame.contentWindow?.postMessage(data,'*') // sandboxed iframe has opaque origin
   }
-  frame.src = `./sandbox.html#run-${count}`
+  // Register onload before insertion; attaching a fresh iframe triggers a real load.
+  frame.replaceWith(freshFrame)
   run.timer = setTimeout(() => {
     if (current !== run) return
     if (!run.done) show(output,'error', mode==='worker'
